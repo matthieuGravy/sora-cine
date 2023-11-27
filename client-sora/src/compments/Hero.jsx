@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section className="hero">
+    <section className="underline">
       <h1>Hero</h1>
     </section>
   );
