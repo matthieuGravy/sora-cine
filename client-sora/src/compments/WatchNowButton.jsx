@@ -3,6 +3,7 @@ import React from 'react'
 const WatchNowButton = () => {
     const launchEpisode = () => {
       
+      // introduire function de lancement du dernier épisode de la série
       console.log('Episode launched!');
       
     };
@@ -12,6 +13,8 @@ const WatchNowButton = () => {
     <button
       className="bg-[#FF7E6B] hover:bg-[#0D0630] text-white font-bold py-[6px] px-6 rounded-xl mt-[1rem] flex items-center"
       onClick={launchEpisode}
+      aria-label="Watch now"
+      type="button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
