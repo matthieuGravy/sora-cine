@@ -11,7 +11,7 @@ const WatchNowButton = () => {
 
   return (
     <button
-      className="bg-[#FF7E6B] hover:bg-[#0D0630] text-white font-bold py-[6px] px-6 rounded-xl mt-[1rem] flex items-center"
+      className="bg-[#FF7E6B] hover:bg-[#0D0630] text-white text-2xl font-bold py-[6px] px-6 rounded-xl mt-[1rem] flex items-center"
       onClick={launchEpisode}
       aria-label="Watch now"
       type="button"
