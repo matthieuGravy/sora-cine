@@ -6,6 +6,7 @@ import { Homepage } from "./routes/Homepage/Homepage";
 import { Landingpage } from "./routes/Landingpage.jsx/Landingpage";
 import { Registerpage } from "./routes/registerpage/registerpage";
 import { Loginpage } from "./routes/Loginpage/Loginpage";
+import { Contactpage } from "./routes/Contactpage/Contactpage";
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
       { path: "hello", element: <Landingpage /> },
       { path: "register", element: <Registerpage /> },
       { path: "login", element: <Loginpage /> },
+      { path: "contact", element: <Contactpage /> },
     ],
   },
 ]);
