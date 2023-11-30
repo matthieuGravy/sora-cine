@@ -8,7 +8,7 @@ const WatchNowButton = () => {
 
   return (
     <button
-      className="bg-[#FF7E6B] hover:bg-[#0D0630] text-white text-lg md:text-2xl font-bold py-2 md:py-[6px] px-4 md:px-6 rounded-xl mt-[1rem] flex items-center"
+      className="bg-[#0b0029] hover:bg-[#ffff66] text-white text-lg md:text-2xl font-bold py-2 md:py-[6px] px-4 md:px-6 rounded-xl mt-[1rem] flex items-center"
       onClick={launchEpisode}
       aria-label="Watch now"
       type="button"
