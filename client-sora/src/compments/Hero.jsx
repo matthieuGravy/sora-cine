@@ -47,7 +47,7 @@ function Hero({ defaultDescription = "" }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % animeData.length);
-    }, 10000);
+    }, 100000);
 
     return () => clearInterval(interval);
   }, [animeData]);
@@ -66,12 +66,12 @@ function Hero({ defaultDescription = "" }) {
     <section className="h-screen w-screen grid-cols-2" style={style}>
       <section className="h-full lg:max-w-screen-md flex items-center">
         <article className="Card p-5 ml-12 sm:ml-20 md:ml-24 lg:ml-48 rounded-lg backdrop-blur h-auto flex flex-col justify-between">
-          <TitleHero text={animeDetails?.animeTitle || ''} />
+          <TitleHero text={animeDetails?.animeTitle || ""} />
           <p className="text-[#fffbdb] max-w-xs sm:max-w-md md:max-w-screen-sm lg:max-w-screen-md text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl line-clamp-3 sm:line-clamp-4 md:line-clamp-5 lg:line-clamp-6">
             <h2 className="font-bold">Synopsis</h2> {synopsis}
           </p>
-          <p className='self-end'>
-            <WatchNowButton />           
+          <p className="self-end">
+            <WatchNowButton />
           </p>
         </article>
       </section>
