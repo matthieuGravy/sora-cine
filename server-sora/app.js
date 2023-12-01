@@ -37,7 +37,6 @@ app.post("/user", (req, res) => {
 });
 
 
-
 app.get("/user/:id", (req, res) => {
   User.findById(req.params.id, (err, data) => {
     if (err) {

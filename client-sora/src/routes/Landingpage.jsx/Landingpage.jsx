@@ -5,4 +5,4 @@ function Landingpage() {
     </div>
   );
 }
-export { Landingpage };
+export default Landingpage;

@@ -11,8 +11,8 @@ function Navbar() {
   const links = [
     { id: 0, to: "/", text: "Home" },
     { id: 1, to: "/about", text: "About" },
-    { id: 2, to: "/contact", text: "Contact" },
-    { id: 3, to: "/login", text: "Login" },
+    { id: 2, to: "/register", text: "Register" },
+    { id: 3, to: "/contact", text: "Contact" },
   ];
 
   function Maplinks() {
@@ -90,7 +90,9 @@ function Navbar() {
             />
           </svg>
         </button>
-        <button className="mx-2 ">Connection</button>
+        <button className="mx-2 ">
+          <NavLink to="/login">Login</NavLink>
+        </button>
       </section>
     </header>
   );
