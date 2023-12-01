@@ -10,10 +10,31 @@ function Navbar() {
 
   const links = [
     { id: 0, to: "/", text: "Home" },
-    { id: 1, to: "/about", text: "About" },
-    { id: 2, to: "/register", text: "Register" },
-    { id: 3, to: "/contact", text: "Contact" },
+    { id: 1, to: "about", text: "About" },
+    { id: 2, to: "register", text: "Register" },
+    { id: 3, to: "contact", text: "Contact" },
   ];
+  const NavLinkComponent = (props) => {
+    const match = useMatch(props.to);
+    const handleClick = () => {
+      if (window.innerWidth <= 1023) {
+        toggleNav();
+      }
+    };
+    return (
+      <li className="px-3">
+        <NavLink
+          onClick={handleClick}
+          to={props.to}
+          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-yellow-500 ${
+            match ? "bg-pink-600" : ""
+          } trnsition-all duration-300 ease-in-out`}
+        >
+          {props.text}
+        </NavLink>
+      </li>
+    );
+  };
 
   function Maplinks() {
     return links.map((link) => (
@@ -22,9 +43,8 @@ function Navbar() {
       </Fragment>
     ));
   }
-
   return (
-    <header className="navbar flex flex-row justify-between flex justify-around">
+    <header className="navbar flex flex-row justify-between flex justify-around h-10">
       <button
         onClick={toggleNav}
         className="lg:hidden xl:hidden flex-initial w-10  grid place-items-center "
@@ -46,11 +66,11 @@ function Navbar() {
       </button>
       <button className="flex-initial w-36">logo</button>
       <nav
-        className={` flex-1 lg:block xl:block h-full w-full lg:h-auto backdrop-blur left-0 top:-1 lg:grid lg:place-items-center ${
+        className={`z-50 lg:z-0 flex-1 lg:block xl:block h-full w-full lg:h-auto backdrop-blur lg:backdrop-blur-none left-0 top:-1 lg:grid lg:place-items-center ${
           isNavVisible ? "absolute" : "hidden"
         }`}
       >
-        <ul className="lg:min-w-full lg:flex-1 flex justify-center text-center flex-col lg:flex-row gap-y-5 text-slate-50 lg:text-black min-h-screen lg:min-h-0 w-full md:w-1/2 bg-indigo-950 lg:bg-transparent relative ">
+        <ul className="transition-all duration-300 lg:min-w-full lg:flex-1 flex justify-center text-center flex-col lg:flex-row gap-y-5 text-slate-50 lg:text-black min-h-screen lg:min-h-0 w-full md:w-1/2 bg-indigo-950 lg:bg-transparent relative ">
           <button
             onClick={toggleNav}
             className="lg:hidden xl:hidden absolute right-5 top-5 "
@@ -97,22 +117,5 @@ function Navbar() {
     </header>
   );
 }
-
-const NavLinkComponent = (props) => {
-  const match = useMatch(props.to);
-
-  return (
-    <li className="px-3">
-      <NavLink
-        to={props.to}
-        className={`px-2 hover:underline hover:underline-offset-8 hover:decoration-yellow-500 ${
-          match ? "bg-pink-600" : ""
-        }`}
-      >
-        {props.text}
-      </NavLink>
-    </li>
-  );
-};
 
 export { Navbar };
