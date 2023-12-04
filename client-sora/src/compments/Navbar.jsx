@@ -26,7 +26,7 @@ function Navbar() {
         <NavLink
           onClick={handleClick}
           to={props.to}
-          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-yellow-500 ${
+          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-teal-500 ${
             match ? "bg-pink-600" : ""
           } trnsition-all duration-300 ease-in-out`}
         >
