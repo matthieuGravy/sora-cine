@@ -2,6 +2,7 @@ import Card from "../../compments/Card";
 
 import TitleCategory from "../../compments/TitleCategory";
 
+
 function Homepage() {
   return (
     <>
@@ -18,7 +19,7 @@ function Homepage() {
         <Card />
         <Card />
         <Card />
-      </div>
+      </div>              
     </>
   );
 }

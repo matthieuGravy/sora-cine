@@ -1,5 +1,9 @@
+import LoginComponent from "../../compments/loginComponent";
+
 function Registerpage() {
-  return <h1>register</h1>;
+  return (
+  <LoginComponent/>
+  );
 }
 
 export default Registerpage;
