@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const app = express();
+
 require("dotenv").config();
 
 app.use(express.json());
@@ -11,7 +13,7 @@ function connectDB() {
     useUnifiedTopology: true,
   });
   const db = mongoose.connection;
-  db.on("error", (err) => {
+  db.on("error", err => {
     console.error("MongoDB connection error:", err);
   });
   db.once("open", () => {
@@ -30,12 +32,29 @@ function connectDB() {
 
 const userSchema = new mongoose.Schema(
   {
+    id: {
+      type: Number,
+      required: true,
+      _id: false,
+    },
     name: {
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
+    firstName: {
+      type: String,
+      required: true,
+    },
+    birthday: {
+      type: Date,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
       required: true,
     },
     created_at: {
@@ -57,30 +76,15 @@ app.post("/user", async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
-/*
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
-app.post("/user", (req, res) => {
-  const user = new User(age, name);
-  user.save((err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    res.json(data);
-  });
+app.get("/user", async (req, res) => {
+  try {
+    user = await userModel.find();
+    res.json({ success: true, message: user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 });
-
-app.get("/user/:id", (req, res) => {
-  User.findById(req.params.id, (err, data) => {
-    if (err) {
-      console.log(err);
-    }
-    res.json(data);
-  });
-});
-*/
 
 mongoose.connection.on("connected", (err, res) => {
   console.log("mongoose is connected");
