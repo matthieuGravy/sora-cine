@@ -26,9 +26,6 @@ dependencies:
   express-session:
     specifier: ^1.17.3
     version: 1.17.3
-  i:
-    specifier: ^0.3.7
-    version: 0.3.7
   mongoose:
     specifier: ^8.0.2
     version: 8.0.2
