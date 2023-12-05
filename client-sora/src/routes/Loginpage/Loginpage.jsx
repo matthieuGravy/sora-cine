@@ -1,10 +1,7 @@
-import LoginComponent from "../../compments/loginComponent";
+import LoginComponent from "../../compments/LoginComponent";
 
 function Loginpage() {
-  return (
-    <LoginComponent />
-
-  );
+  return <LoginComponent />;
 }
 
 export default Loginpage;
