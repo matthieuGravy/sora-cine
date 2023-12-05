@@ -145,7 +145,6 @@ function LoginComponent() {
             Log in?
           </a>
         </p>
-
         <p className="mt-5 row-span-2 text-center text-sm text-gray-400">
           By signing up to create an account I accept<br></br>
           Company's
