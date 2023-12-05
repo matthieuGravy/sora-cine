@@ -1,8 +1,10 @@
-import LoginComponent from "../../compments/loginComponent";
-
+import LoginComponent from "../../compments/LoginComponent";
 function Registerpage() {
   return (
-  <LoginComponent/>
+    <>
+      <h1>register</h1>
+      <LoginComponent />
+    </>
   );
 }
 
