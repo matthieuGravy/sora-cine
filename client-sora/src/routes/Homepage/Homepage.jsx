@@ -6,13 +6,15 @@ function Homepage() {
   return (
     <>
       <Hero />
-      <TitleCategory title="Test titre de catégorie" />
-      <div className="flex flex-row">
-        <Card />
-        <Card />
-        <Card />
-      </div>
-      <TitleCategory title="Test titre de catégorie" />
+      <article className="pt-12 pb-6">
+        <TitleCategory title="Titre category 1" />
+        <section className="flex flex-row">
+          <Card />
+          <Card />
+          <Card />
+        </section>
+      </article>
+      <TitleCategory title="Titre category 2" />
       <div className="flex flex-row">
         <Card />
         <Card />
