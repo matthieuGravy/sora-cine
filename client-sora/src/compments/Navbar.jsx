@@ -26,7 +26,7 @@ function Navbar() {
         <NavLink
           onClick={handleClick}
           to={props.to}
-          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-yellow-500 ${
+          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-teal-500 ${
             match ? "bg-pink-600" : ""
           } trnsition-all duration-300 ease-in-out`}
         >
@@ -44,7 +44,7 @@ function Navbar() {
     ));
   }
   return (
-    <header className="navbar flex flex-row justify-between flex justify-around h-10">
+    <header className="navbar flex flex-row justify-between flex justify-around h-8 text-slate-50 ">
       <button
         onClick={toggleNav}
         className="lg:hidden xl:hidden flex-initial w-10  grid place-items-center "
@@ -66,11 +66,11 @@ function Navbar() {
       </button>
       <button className="flex-initial w-36">logo</button>
       <nav
-        className={`z-50 lg:z-0 flex-1 lg:block xl:block h-full w-full lg:h-auto backdrop-blur lg:backdrop-blur-none left-0 top:-1 lg:grid lg:place-items-center ${
+        className={`z-50 lg:z-0 flex-1 lg:flex h-full w-full lg:h-auto backdrop-blur lg:backdrop-blur-none left-0 top:-1 lg:grid lg:place-items-center ${
           isNavVisible ? "absolute" : "hidden"
         }`}
       >
-        <ul className="transition-all duration-300 lg:min-w-full lg:flex-1 flex justify-center text-center flex-col lg:flex-row gap-y-5 text-slate-50 lg:text-black min-h-screen lg:min-h-0 w-full md:w-1/2 bg-indigo-950 lg:bg-transparent relative ">
+        <ul className="transition-all duration-300 lg:min-w-full lg:flex-1 flex justify-center text-center flex-col lg:flex-row gap-y-5 min-h-screen lg:min-h-0 w-full md:w-1/2 bg-indigo-950 lg:bg-transparent relative ">
           <button
             onClick={toggleNav}
             className="lg:hidden xl:hidden absolute right-5 top-5 "

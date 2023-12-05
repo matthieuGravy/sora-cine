@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors");
 const app = express();
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -21,7 +21,7 @@ function connectDB() {
     useUnifiedTopology: true,
   });
   const db = mongoose.connection;
-  db.on("error", err => {
+  db.on("error", (err) => {
     console.error("MongoDB connection error:", err);
   });
   db.once("open", () => {

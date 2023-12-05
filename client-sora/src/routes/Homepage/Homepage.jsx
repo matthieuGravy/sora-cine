@@ -1,12 +1,12 @@
-import Card from "../../compments/Card";
-
 import TitleCategory from "../../compments/TitleCategory";
+import Card from "../../compments/Card";
+import { Hero } from "../../compments/Hero";
+
 
 function Homepage() {
   return (
     <>
-      <h1>Homepage Hello</h1>
-
+      <Hero />
       <TitleCategory title="Test titre de catégorie" />
       <div className="flex flex-row">
         <Card />

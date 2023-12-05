@@ -26,9 +26,6 @@ dependencies:
   express-session:
     specifier: ^1.17.3
     version: 1.17.3
-  i:
-    specifier: ^0.3.7
-    version: 0.3.7
   mongoose:
     specifier: ^8.0.2
     version: 8.0.2
@@ -601,11 +598,6 @@ packages:
       debug: 4.3.4
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /i@0.3.7:
-    resolution: {integrity: sha512-FYz4wlXgkQwIPqhzC5TdNMLSE5+GS1IIDJZY/1ZiEPCT2S3COUVZeT5OW4BmW4r5LHLQuOosSwsvnroG9GR59Q==}
-    engines: {node: '>=0.4'}
     dev: false
 
   /iconv-lite@0.4.24:
