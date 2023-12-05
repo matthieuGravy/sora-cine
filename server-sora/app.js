@@ -40,11 +40,11 @@ function connectDB() {
 
 const userSchema = new mongoose.Schema(
   {
-    lastName: {
+    lastname: {
       type: String,
       required: true,
     },
-    firstName: {
+    firstname: {
       type: String,
       required: true,
     },
@@ -76,9 +76,41 @@ app.post("/user", async (req, res) => {
     const savedUser = await user.save();
     res.json({ success: true, message: savedUser });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
+    }
   }
 });
+
+/*
+app.post("/user", async (req, res) => {
+  try {
+    const user = new userModel(req.body);
+    const savedUser = await user.save();
+    res.json({ success: true, message: savedUser });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      // Gérer les erreurs de validation Mongoose
+      const validationErrors = Object.values(error.errors).map(
+        (e) => e.message
+      );
+      res.status(400).json({
+        success: false,
+        message: "Validation Error",
+        errors: validationErrors,
+      });
+    } else {
+      // Gérer les autres erreurs
+      console.error("Error:", error);
+      res
+        .status(500)
+        .json({ success: false, message: "Internal Server Error" });
+    }
+  }
+});
+*/
 
 app.get("/user", async (req, res) => {
   try {
@@ -107,7 +139,6 @@ app.get("/user/:id", async (req, res) => {
         .status(404)
         .json({ success: false, message: "User not found" });
     }
-
     res.json({ success: true, message: user });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -123,5 +154,3 @@ connectDB();
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
-
-
