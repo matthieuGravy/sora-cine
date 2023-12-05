@@ -21,7 +21,7 @@ function connectDB() {
     useUnifiedTopology: true,
   });
   const db = mongoose.connection;
-  db.on("error", err => {
+  db.on("error", (err) => {
     console.error("MongoDB connection error:", err);
   });
   db.once("open", () => {
@@ -69,7 +69,20 @@ const userSchema = new mongoose.Schema(
   { collection: "users" }
 );
 
+const loginSchema = new mongoose.Schema(
+  {
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+  },
+  { collection: "logins" }
+);
+
 const userModel = mongoose.model("User", userSchema);
+const loginModel = mongoose.model("Login", loginSchema);
+
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/user", async (req, res) => {
   try {
@@ -146,6 +159,52 @@ app.delete("/user/:id", async (req, res) => {
     res.json({ success: true, message: user });
   } catch (error) {
     console.error("Error:", error); // Ajoutez ceci pour déboguer
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.get("/logins", async (req, res) => {
+  try {
+    const logins = await loginModel.find();
+    res.json({ success: true, message: logins });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.post("/logins", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Étape 1: Vérifier si l'email existe dans la collection "users"
+    const user = await userModel.findOne({ email });
+
+    if (!user) {
+      // Email non trouvé
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password." });
+    }
+
+    // Étape 2: Vérifier si le mot de passe est correct
+    if (password !== user.password) {
+      // Mot de passe incorrect
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password." });
+    }
+
+    // Étape 3: Ajouter l'enregistrement dans la collection "logins"
+    const login = new loginModel({ email, password });
+
+    const savedLogin = await login.save();
+
+    res.json({
+      success: true,
+      message: "Login successful!",
+      login: savedLogin,
+    });
+  } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 });
