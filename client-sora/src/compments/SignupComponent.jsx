@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function LoginComponent() {
+function SignupComponent() {
   const [showPassword, setShowPassword] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [formData, setFormData] = useState({
@@ -178,4 +178,4 @@ function LoginComponent() {
   );
 }
 
-export default LoginComponent;
+export default SignupComponent;
