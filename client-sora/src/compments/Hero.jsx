@@ -55,7 +55,7 @@ function Hero() {
           src={goku}
           alt=""
           loading="lazy"
-          className="xl:max-w-lg max-w-sm mx-auto"
+          className="xl:max-w-lg lg:max-w-sm max-w-xs mx-auto"
         />
       </figure>
     </section>
