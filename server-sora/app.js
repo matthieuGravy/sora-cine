@@ -21,7 +21,7 @@ function connectDB() {
     useUnifiedTopology: true,
   });
   const db = mongoose.connection;
-  db.on("error", (err) => {
+  db.on("error", err => {
     console.error("MongoDB connection error:", err);
   });
   db.once("open", () => {
@@ -55,6 +55,7 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
+      unique: true, // Ajoutez ceci pour définir l'attribut email comme unique
     },
     password: {
       type: String,
@@ -124,23 +125,27 @@ app.get("/user", async (req, res) => {
 app.get("/user/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const isValidObjectId = mongoose.Types.ObjectId.isValid(id);
+    console.log("ID:", id); // Ajoutez ceci pour afficher l'ID dans la console
 
-    if (!isValidObjectId) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ObjectId"); // Ajoutez ceci pour déboguer
       return res
         .status(400)
         .json({ success: false, message: "Invalid ObjectId" });
     }
 
-    const user = await userModel.findById(mongoose.Types.ObjectId(id));
+    const user = await userModel.findById(id);
 
     if (!user) {
+      console.log("User not found"); // Ajoutez ceci pour déboguer
       return res
         .status(404)
         .json({ success: false, message: "User not found" });
     }
+
     res.json({ success: true, message: user });
   } catch (error) {
+    console.error("Error:", error); // Ajoutez ceci pour déboguer
     res.status(500).json({ success: false, message: error.message });
   }
 });
