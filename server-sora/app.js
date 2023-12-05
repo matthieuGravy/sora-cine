@@ -85,34 +85,6 @@ app.post("/user", async (req, res) => {
   }
 });
 
-/*
-app.post("/user", async (req, res) => {
-  try {
-    const user = new userModel(req.body);
-    const savedUser = await user.save();
-    res.json({ success: true, message: savedUser });
-  } catch (error) {
-    if (error.name === "ValidationError") {
-      // Gérer les erreurs de validation Mongoose
-      const validationErrors = Object.values(error.errors).map(
-        (e) => e.message
-      );
-      res.status(400).json({
-        success: false,
-        message: "Validation Error",
-        errors: validationErrors,
-      });
-    } else {
-      // Gérer les autres erreurs
-      console.error("Error:", error);
-      res
-        .status(500)
-        .json({ success: false, message: "Internal Server Error" });
-    }
-  }
-});
-*/
-
 app.get("/user", async (req, res) => {
   try {
     const user = await userModel.find();
@@ -135,6 +107,34 @@ app.get("/user/:id", async (req, res) => {
     }
 
     const user = await userModel.findById(id);
+
+    if (!user) {
+      console.log("User not found"); // Ajoutez ceci pour déboguer
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, message: user });
+  } catch (error) {
+    console.error("Error:", error); // Ajoutez ceci pour déboguer
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.delete("/user/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("ID:", id); // Ajoutez ceci pour afficher l'ID dans la console
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ObjectId"); // Ajoutez ceci pour déboguer
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid ObjectId" });
+    }
+
+    const user = await userModel.findByIdAndDelete(id);
 
     if (!user) {
       console.log("User not found"); // Ajoutez ceci pour déboguer
