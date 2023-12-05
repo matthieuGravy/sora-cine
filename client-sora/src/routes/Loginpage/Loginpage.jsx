@@ -1,5 +1,10 @@
+import LoginComponent from "../../compments/loginComponent";
+
 function Loginpage() {
-  return <h1>Login</h1>;
+  return (
+    <LoginComponent />
+
+  );
 }
 
 export default Loginpage;
