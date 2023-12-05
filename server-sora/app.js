@@ -40,12 +40,7 @@ function connectDB() {
 
 const userSchema = new mongoose.Schema(
   {
-    id: {
-      type: Number,
-      required: true,
-      _id: false,
-    },
-    name: {
+    lastName: {
       type: String,
       required: true,
     },
@@ -87,7 +82,32 @@ app.post("/user", async (req, res) => {
 
 app.get("/user", async (req, res) => {
   try {
-    user = await userModel.find();
+    const user = await userModel.find();
+    res.json({ success: true, message: user });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+app.get("/user/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const isValidObjectId = mongoose.Types.ObjectId.isValid(id);
+
+    if (!isValidObjectId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid ObjectId" });
+    }
+
+    const user = await userModel.findById(mongoose.Types.ObjectId(id));
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
     res.json({ success: true, message: user });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
@@ -103,3 +123,5 @@ connectDB();
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+
