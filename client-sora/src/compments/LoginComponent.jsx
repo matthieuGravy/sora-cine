@@ -115,6 +115,7 @@ function LoginComponent() {
               </button>
             </fieldset>
             {/* Date Input */}
+            <label for="birthdate">Date of birth</label>
             <input
               name="birthday"
               className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
