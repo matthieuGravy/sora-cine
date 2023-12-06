@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-
+const bcrypt = require("bcrypt")
 require("dotenv").config();
 
 app.use(express.json());
@@ -56,6 +56,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true, // Ajoutez ceci pour définir l'attribut email comme unique
+      validate: {
+        validator: (value) => {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        },
+        message: "Invalid email address",
+      },
     },
     password: {
       type: String,
@@ -88,8 +94,14 @@ app.get("/", (req, res) => {
 
 app.post("/user", async (req, res) => {
   try {
-    const user = new userModel(req.body);
+    const { password, ...userData } = req.body;
+    const hashedPassword = await bcrypt.hash(password,10);
+    const user = new userModel({
+      ...userData,
+      password: hashedPassword,
+    });
     const savedUser = await user.save();
+
     res.json({ success: true, message: savedUser });
   } catch (error) {
     if (error.name === "ValidationError") {
@@ -198,8 +210,9 @@ app.post("/logins", async (req, res) => {
         .json({ success: false, message: "Invalid email or password." });
     }
 
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
     // Étape 2: Vérifier si le mot de passe est correct
-    if (password !== user.password) {
+    if (!validPassword) {
       // Mot de passe incorrect
       return res
         .status(401)
