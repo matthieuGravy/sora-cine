@@ -1,8 +1,4 @@
 function Landingpage() {
-  return (
-    <div>
-      <h1>Landingpage</h1>
-    </div>
-  );
+  return <h1>Landingpage</h1>;
 }
 export default Landingpage;
