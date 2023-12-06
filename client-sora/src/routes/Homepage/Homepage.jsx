@@ -1,4 +1,4 @@
-import TitleCategory from "../../compments/TitleCategory";
+import { TitleCategory } from "../../compments/TitleCategory";
 import Card from "../../compments/Card";
 import { Hero } from "../../compments/Hero";
 
