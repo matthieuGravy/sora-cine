@@ -1,5 +1,15 @@
+import ErrorComponent from "../../compments/ErrorComponent";
+import React, { useEffect } from 'react';
+
 function Errorpage() {
-  return <h1>Error page</h1>;
+  useEffect(() => {
+    // Change the body background color
+    document.body.style.backgroundColor = 'white';     
+  }); 
+
+  return (
+    <ErrorComponent/>
+  );
 }
 
 export { Errorpage };
