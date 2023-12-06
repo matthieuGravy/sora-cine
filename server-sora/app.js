@@ -21,7 +21,7 @@ function connectDB() {
     useUnifiedTopology: true,
   });
   const db = mongoose.connection;
-  db.on("error", (err) => {
+  db.on("error", err => {
     console.error("MongoDB connection error:", err);
   });
   db.once("open", () => {
@@ -84,6 +84,8 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+//user
+
 app.post("/user", async (req, res) => {
   try {
     const user = new userModel(req.body);
@@ -98,6 +100,8 @@ app.post("/user", async (req, res) => {
   }
 });
 
+//user
+
 app.get("/user", async (req, res) => {
   try {
     const user = await userModel.find();
@@ -106,6 +110,8 @@ app.get("/user", async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+//user/:id/get
 
 app.get("/user/:id", async (req, res) => {
   try {
@@ -135,6 +141,8 @@ app.get("/user/:id", async (req, res) => {
   }
 });
 
+//user/:id/delete
+
 app.delete("/user/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -163,6 +171,8 @@ app.delete("/user/:id", async (req, res) => {
   }
 });
 
+//logins/get
+
 app.get("/logins", async (req, res) => {
   try {
     const logins = await loginModel.find();
@@ -171,6 +181,8 @@ app.get("/logins", async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 });
+
+//logins/post
 
 app.post("/logins", async (req, res) => {
   const { email, password } = req.body;
@@ -204,6 +216,71 @@ app.post("/logins", async (req, res) => {
       message: "Login successful!",
       login: savedLogin,
     });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+//VideoModel
+
+const videoSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    genre: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    synopsis: {
+      type: String,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+    duration: {
+      type: Number,
+      required: true,
+    },
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { collection: "videos" }
+);
+
+const videoModel = mongoose.model("Video", videoSchema);
+
+//Videos/post
+
+app.post("/videos", async (req, res) => {
+  try {
+    const video = new videoModel(req.body);
+    const savedVideo = await video.save();
+    res.json({ success: true, message: savedVideo });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+});
+
+//videos/get
+
+app.get("/videos", async (req, res) => {
+  try {
+    const videos = await videoModel.find();
+    res.json({ success: true, message: videos });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
