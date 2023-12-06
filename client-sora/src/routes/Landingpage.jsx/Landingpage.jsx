@@ -1,4 +1,6 @@
+import { Landing } from "../../compments/Landing";
+
 function Landingpage() {
-  return <h1>Landingpage</h1>;
+  return <Landing />;
 }
 export default Landingpage;
