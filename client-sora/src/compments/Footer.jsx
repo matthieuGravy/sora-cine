@@ -1,22 +1,26 @@
 import { NavLink } from "react-router-dom";
+import { Newsletter } from "./Newsletter.jsx";
 
 const Footerlanding = () => {
   return (
     <>
-      <section>
-        <article>
-          <h2>Get started</h2>
-          <NavLink to="/register">Sign up</NavLink>
-          <NavLink to="/login">Log in</NavLink>
-        </article>
-        <article>
-          <h2>Features</h2>
-          <p>Contact</p>
-        </article>
-        <form>
-          <input type="text" placeholder="Email"></input>
-          <input type="submit" value="Subscribe"></input>
-        </form>
+      <section className="grid grid-cols-2 gap-y-5 bg-teal-800 text-zinc-300">
+        <ul className="pt-6 pb-4 flex flex-col items-center text-left bg-teal-600">
+          <h2 className="pb-2 pt-2 text-xl">Get started</h2>
+          <li>
+            <NavLink to="/register">Sign up</NavLink>
+          </li>
+          <li>
+            <NavLink to="/login">Log in</NavLink>
+          </li>
+        </ul>
+        <ul className="pt-6 pb-4 flex flex-col items-center text-left bg-teal-600">
+          <h2 className="pb-2 pt-2 text-xl">Features</h2>
+          <li>
+            <p>Contact</p>
+          </li>
+        </ul>
+        <Newsletter />
       </section>
     </>
   );
