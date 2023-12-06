@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 app.use(express.json());
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true, // Ajoutez ceci pour définir l'attribut email comme unique
       validate: {
-        validator: (value) => {
+        validator: value => {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
         },
         message: "Invalid email address",
@@ -95,7 +95,7 @@ app.get("/", (req, res) => {
 app.post("/user", async (req, res) => {
   try {
     const { password, ...userData } = req.body;
-    const hashedPassword = await bcrypt.hash(password,10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new userModel({
       ...userData,
       password: hashedPassword,
@@ -210,7 +210,10 @@ app.post("/logins", async (req, res) => {
         .json({ success: false, message: "Invalid email or password." });
     }
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
     // Étape 2: Vérifier si le mot de passe est correct
     if (!validPassword) {
       // Mot de passe incorrect
@@ -301,6 +304,38 @@ app.get("/videos", async (req, res) => {
 
 mongoose.connection.on("connected", (err, res) => {
   console.log("mongoose is connected");
+});
+
+//videos/:id/put
+
+app.put("/videos/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("ID:", id); // Ajoutez ceci pour afficher l'ID dans la console
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ObjectId"); // Ajoutez ceci pour déboguer
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid ObjectId" });
+    }
+
+    const video = await videoModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    if (!video) {
+      console.log("Video not found"); // Ajoutez ceci pour déboguer
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+    }
+
+    res.json({ success: true, message: video });
+  } catch (error) {
+    console.error("Error:", error); // Ajoutez ceci pour déboguer
+    res.status(500).json({ success: false, message: error.message });
+  }
 });
 
 connectDB();
