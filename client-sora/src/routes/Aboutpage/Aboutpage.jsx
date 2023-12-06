@@ -1,10 +1,7 @@
-import { Landing } from "../../compments/Landing";
-
 function Aboutpage() {
-
   return (
     <>
-      <Landing />
+      <h1>About</h1>
     </>
   );
 }
