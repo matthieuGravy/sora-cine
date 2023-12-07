@@ -20,6 +20,7 @@ function ErrorComponent() {
         errorMsg = error.message || "Simulated error occurred.";
       }
     }
+    return { errorCode, errorMsg };
       
   }  
     
@@ -29,6 +30,8 @@ function ErrorComponent() {
   const redirectToHomepage = () => {
     navigate("/");
   };    
+
+  const errorDetails = handleErrors();
     
    function ErrorJumbo(props) {
     // props 1: errorCode
