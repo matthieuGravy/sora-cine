@@ -363,6 +363,67 @@ app.get("/videos/:category", async (req, res) => {
   }
 });
 
+//contact form
+
+//contactSchema
+
+const contactSchema = new mongoose.Schema(
+  {
+    lastname: {
+      type: String,
+      required: true,
+    },
+    firstname: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    subject: {
+      type: String,
+    },
+    content: {
+      type: String,
+    },
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { collection: "contacts" }
+);
+
+const contactModel = mongoose.model("Contact", contactSchema);
+
+//contact/post
+
+app.post("/contact", async (req, res) => {
+  try {
+    const contact = new contactModel(req.body);
+    const savedContact = await contact.save();
+    res.json({ success: true, message: savedContact });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+});
+
+//contact/get
+
+app.get("/contact", async (req, res) => {
+  try {
+    const contact = await contactModel.find();
+    res.json({ success: true, message: contact });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 connectDB();
 
 app.listen(port, () => {
