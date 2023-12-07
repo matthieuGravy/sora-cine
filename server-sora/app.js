@@ -246,7 +246,7 @@ const videoSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    genre: {
+    category: {
       type: String,
       required: true,
     },
@@ -335,6 +335,31 @@ app.put("/videos/:id", async (req, res) => {
   } catch (error) {
     console.error("Error:", error); // Ajoutez ceci pour déboguer
     res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+//videos/:category/get
+
+app.get("/videos/:category", async (req, res) => {
+  try {
+    const categoryParam = req.params.category;
+
+    // Utilize the videoModel to search for videos by category
+    const videos = await videoModel.find({ category: categoryParam });
+
+    if (!videos || videos.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "Aucune vidéo trouvée pour cette catégorie." });
+    }
+
+    // Send the videos as a response
+    res.status(200).json(videos);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Erreur serveur lors de la récupération des vidéos." });
   }
 });
 
