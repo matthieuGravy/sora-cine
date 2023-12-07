@@ -8,16 +8,16 @@ const Footerlanding = () => {
         <section className="grid grid-rows-2 grid-cols-2 gap-y-5 bg-gray-950 text-zinc-300 px-6 md:max-w-4xl m-auto">
           <ul className="pt-6 pb-4 col-1 ">
             <h2 className="pb-2 pt-2 text-2xl xl:text-4xl">Quick access</h2>
-            <li>
+            <li className="pl-2">
               <NavLink to="/register">Sign up</NavLink>
             </li>
-            <li>
+            <li className="pl-2">
               <NavLink to="/login">Log in</NavLink>
             </li>
-            <li>
+            <li className="pl-2">
               <NavLink to="/contact">Contact</NavLink>
             </li>
-            <li>
+            <li className="pl-2">
               <NavLink to="/about">About Sora</NavLink>
             </li>
           </ul>
@@ -35,8 +35,8 @@ const Footerlanding = () => {
 
 const Footer = (props) => {
   return (
-    <section className="bg-gray-950 text-slate-200">
-      {props.children}
+    <section className="bg-gray-950 text-slate-200 flex flex-col">
+      <div className="flex-grow">{props.children}</div>
 
       <p className="py-4 text-center">© 2023 Sora. All rights reserved.</p>
     </section>
