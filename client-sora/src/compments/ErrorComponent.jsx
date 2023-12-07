@@ -57,17 +57,19 @@ function ErrorComponent() {
   function ErrorJumbo(props) {
     return (
       <>
-        <section className='grid-cols-1'>
-          <figure>
-            <img className="p-5 mx-auto backdrop-blur max-h-72" src="./src/assets/images/jujutsu.png" alt="image of Sukuna"/>
-          </figure>        
-                   
-          <section className='mt-50 row-span-3 text-center align-center'>
+        <main className="bg-[url('./src/assets/images/jujutsu.png')] bg-no-repeat bg-contain sm:bg-left">
+          <section className='flex flex-col sm:flex-row backdrop-blur p-5 rounded-lg'>
+            <figure className="sm:order-last">
+              <img className="p-5 mx-auto max-w-screen" src="./src/assets/images/jujutsu.png" alt="image of Sukuna"/>
+            </figure>        
+                    
+            <section className='mt-16 row-span-3 text-center align-center'>
               <h2 className="text-6xl pt-8 ">{props.errorCode}</h2>
               <p className="pb-12 pt-4">{props.errorMsg}</p>        
               <button className="bg-slate-200 text-slate-800 rounded-full px-4 py-2" onClick={redirectToHomepage}>Go to Home</button>
             </section>
-        </section>
+          </section>
+        </main>
       </>
     );
   }
