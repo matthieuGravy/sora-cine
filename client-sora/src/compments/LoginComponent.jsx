@@ -122,7 +122,7 @@ function LoginComponent() {
             Sign in
           </button>
         </form>
-        <a className="flex justify-center text-sm text-gray-600 text-blue-500" href="#">Forget password?</a>      
+        <a className="flex justify-center text-sm text-blue-500" href="#">Forget password?</a>      
       </section>
     </>
   )
