@@ -26,9 +26,9 @@ function Navbar() {
         <NavLink
           onClick={handleClick}
           to={props.to}
-          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-teal-500 ${
-            match ? "bg-teal-800" : ""
-          } trnsition-all duration-300 ease-in-out`}
+          className={`px-2 py-1 hover:underline hover:transition-all hover:underline-offset-8 decoration-teal-400 ${
+            match ? "bg-red-900" : ""
+          } transition-all duration-300 ease-in-out`}
         >
           {props.text}
         </NavLink>
@@ -64,7 +64,9 @@ function Navbar() {
           />
         </svg>
       </button>
-      <button className="flex-initial w-36">logo</button>
+      <button className="flex-initial w-36">
+        <img src="../assets/images/sora.svg" alt="Sora" />
+      </button>
       <nav
         className={`z-50 lg:z-0 flex-1 lg:flex h-full w-full lg:h-auto backdrop-blur lg:backdrop-blur-none left-0 top:-1 lg:grid lg:place-items-center ${
           isNavVisible ? "fixed" : "hidden"

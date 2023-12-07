@@ -7,7 +7,7 @@ function App() {
     <>
       <Navbar />
       <ModalCookie />
-      <main>
+      <main className="min-h-screen">
         <Outlet></Outlet>
       </main>
     </>

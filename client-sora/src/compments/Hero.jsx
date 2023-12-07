@@ -39,7 +39,7 @@ function Hero() {
       <article className="place-self-end">
         <Herojumbo />
         <div className="xl:flex w-60 hidden">
-          <p className="w-20 py-10 text-center bg-teal-800 text-slate-100">
+          <p className="w-20 py-10 text-center bg-red-900 text-slate-100">
             Screen
           </p>
           <button className="w-20 py-10 bg-slate-200 text-slate-800">

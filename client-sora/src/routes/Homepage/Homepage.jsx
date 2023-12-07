@@ -1,6 +1,7 @@
 import { TitleCategory } from "../../compments/TitleCategory";
 import Card from "../../compments/Card";
 import { Hero } from "../../compments/Hero";
+import { Footer } from "../../compments/Footer";
 
 function Homepage() {
   return (
@@ -20,6 +21,7 @@ function Homepage() {
         <Card />
         <Card />
       </div>
+      <Footer />
     </>
   );
 }
