@@ -56,20 +56,18 @@ function ErrorComponent() {
 
   function ErrorJumbo(props) {
     return (
-      <>
-        <main className="bg-[url('./src/assets/images/jujutsu.png')] bg-no-repeat bg-contain sm:bg-left">
-          <section className='flex flex-col sm:flex-row backdrop-blur p-5 rounded-lg'>
-            <figure className="sm:order-last">
-              <img className="p-5 mx-auto max-w-screen" src="./src/assets/images/jujutsu.png" alt="image of Sukuna"/>
-            </figure>        
-                    
-            <section className='mt-16 row-span-3 text-center align-center'>
-              <h2 className="text-6xl pt-8 ">{props.errorCode}</h2>
-              <p className="pb-12 pt-4">{props.errorMsg}</p>        
-              <button className="bg-slate-200 text-slate-800 rounded-full px-4 py-2" onClick={redirectToHomepage}>Go to Home</button>
-            </section>
-          </section>
-        </main>
+      <>        
+        <section className='grid grid-rows-2 grid-flow-col h-screen bg-yellow-200 sm:pt-12 md:pt-18 lg:pt-24 lg:pt-32 rounded-lg justify-center lg:grid-rows-1'>
+          <figure className='lg:pl-48'>
+            <img src="./src/assets/images/jujutsu.png" alt="image of Sukuna"/>
+          </figure>          
+          
+          <section className='pb-4 text-center align-center backdrop-blur rounded-xl lg:order-first lg:absolute lg:max-w-xl lg:pl-12 xl:pl-48 xl:max-w-2xl 2xl:pl-72 2xl:max-w-4xl'>
+            <h2 className="text-6xl sm:pt-20">{props.errorCode}</h2>
+            <p className="pb-12 pt-4">{props.errorMsg}</p>        
+            <button className="bg-slate-200 text-slate-800 rounded-full px-4 py-2" onClick={redirectToHomepage}>Go to Home</button>
+          </section>                    
+        </section>        
       </>
     );
   }
