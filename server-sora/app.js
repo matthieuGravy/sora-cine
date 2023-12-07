@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 
 app.use(express.json());
@@ -57,7 +57,7 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true, // Ajoutez ceci pour définir l'attribut email comme unique
       validate: {
-        validator: (value) => {
+        validator: value => {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
         },
         message: "Invalid email address",
@@ -94,7 +94,7 @@ app.get("/", (req, res) => {
 app.post("/user", async (req, res) => {
   try {
     const { password, ...userData } = req.body;
-    const hashedPassword = await bcrypt.hash(password,10);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new userModel({
       ...userData,
       password: hashedPassword,
@@ -209,7 +209,10 @@ app.post("/logins", async (req, res) => {
         .json({ success: false, message: "Invalid email or password." });
     }
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
     // Étape 2: Vérifier si le mot de passe est correct
     if (!validPassword) {
       // Mot de passe incorrect
@@ -242,7 +245,7 @@ const videoSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    genre: {
+    category: {
       type: String,
       required: true,
     },
@@ -300,6 +303,124 @@ app.get("/videos", async (req, res) => {
 
 mongoose.connection.on("connected", (err, res) => {
   console.log("mongoose is connected");
+});
+
+//videos/:id/put
+
+app.put("/videos/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("ID:", id); // Ajoutez ceci pour afficher l'ID dans la console
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("Invalid ObjectId"); // Ajoutez ceci pour déboguer
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid ObjectId" });
+    }
+
+    const video = await videoModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+
+    if (!video) {
+      console.log("Video not found"); // Ajoutez ceci pour déboguer
+      return res
+        .status(404)
+        .json({ success: false, message: "Video not found" });
+    }
+
+    res.json({ success: true, message: video });
+  } catch (error) {
+    console.error("Error:", error); // Ajoutez ceci pour déboguer
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+//videos/:category/get
+
+app.get("/videos/:category", async (req, res) => {
+  try {
+    const categoryParam = req.params.category;
+
+    // Utilize the videoModel to search for videos by category
+    const videos = await videoModel.find({ category: categoryParam });
+
+    if (!videos || videos.length === 0) {
+      return res
+        .status(404)
+        .json({ message: "Aucune vidéo trouvée pour cette catégorie." });
+    }
+
+    // Send the videos as a response
+    res.status(200).json(videos);
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Erreur serveur lors de la récupération des vidéos." });
+  }
+});
+
+//contact form
+
+//contactSchema
+
+const contactSchema = new mongoose.Schema(
+  {
+    lastname: {
+      type: String,
+      required: true,
+    },
+    firstname: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    subject: {
+      type: String,
+    },
+    content: {
+      type: String,
+    },
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { collection: "contacts" }
+);
+
+const contactModel = mongoose.model("Contact", contactSchema);
+
+//contact/post
+
+app.post("/contact", async (req, res) => {
+  try {
+    const contact = new contactModel(req.body);
+    const savedContact = await contact.save();
+    res.json({ success: true, message: savedContact });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+});
+
+//contact/get
+
+app.get("/contact", async (req, res) => {
+  try {
+    const contact = await contactModel.find();
+    res.json({ success: true, message: contact });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
 });
 
 connectDB();

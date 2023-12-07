@@ -1,7 +1,15 @@
+import ContactComponent from "../../compments/ContactComponent";
+import { Footer, Footerlanding } from "../../compments/Footer";
+
 function Contactpage() {
   return (
     <>
-      <h1>Contact</h1>
+      <section className="pt-6 pb-12">
+        <ContactComponent />
+      </section>
+      <Footer>
+        <Footerlanding />
+      </Footer>
     </>
   );
 }
