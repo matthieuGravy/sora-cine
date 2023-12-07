@@ -91,7 +91,6 @@ app.get("/", (req, res) => {
 });
 
 //user
-
 app.post("/user", async (req, res) => {
   try {
     const { password, ...userData } = req.body;
