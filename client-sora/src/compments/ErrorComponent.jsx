@@ -51,7 +51,7 @@ function ErrorComponent() {
   }
 
   return (            
-    <ErrorJumbo errorCode="404" errorMsg="Props message d'erreur"/>
+    <ErrorJumbo errorCode={errorDetails.errorCode} errorMsg={errorDetails.errorMsg} />
   );
 }
 
