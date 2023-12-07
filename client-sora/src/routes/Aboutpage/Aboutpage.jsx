@@ -1,14 +1,10 @@
-import { Footer, Footerlanding } from "../../compments/Footer";
-import { Landing } from "../../compments/Landing";
+import { Footer } from "../../compments/Footer";
 
 function Aboutpage() {
   return (
     <>
       <h1>About</h1>
-      <Landing />
-      <Footer>
-        <Footerlanding />
-      </Footer>
+      <Footer />
     </>
   );
 }

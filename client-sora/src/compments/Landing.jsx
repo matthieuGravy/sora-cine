@@ -1,7 +1,6 @@
 import mokupsora from "../assets/images/mokup-sora.png";
 import SignupComponent from "./SignupComponent";
 import { TitleMain } from "../compments/TitleCategory";
-import pexels from "../assets/images/pexels-uriel-mont-6280953.jpg";
 
 function Landing() {
   const title = "Get started";
@@ -13,7 +12,6 @@ function Landing() {
         <figure className="grid items-center">
           <img alt="" src={mokupsora} className="max-w-xs" />
         </figure>
-
         <figure className="md:col-span-2 ">
           <SignupComponent />
         </figure>

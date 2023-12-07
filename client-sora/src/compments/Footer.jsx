@@ -4,10 +4,10 @@ import { Newsletter } from "./Newsletter.jsx";
 const Footerlanding = () => {
   return (
     <>
-      <article className="bg-teal-800">
-        <section className="grid grid-rows-2 grid-cols-2 gap-y-5 bg-teal-800 text-zinc-300 px-6 md:max-w-4xl m-auto">
+      <article className="bg-gray-950">
+        <section className="grid grid-rows-2 grid-cols-2 gap-y-5 bg-gray-950 text-zinc-300 px-6 md:max-w-4xl m-auto">
           <ul className="pt-6 pb-4 col-1 ">
-            <h2 className="pb-2 pt-2 text-2xl">Get started</h2>
+            <h2 className="pb-2 pt-2 text-2xl xl:text-4xl">Quick access</h2>
             <li>
               <NavLink to="/register">Sign up</NavLink>
             </li>
@@ -16,6 +16,9 @@ const Footerlanding = () => {
             </li>
             <li>
               <NavLink to="/contact">Contact</NavLink>
+            </li>
+            <li>
+              <NavLink to="/about">About Sora</NavLink>
             </li>
           </ul>
           <figure className="place-self-center pt-6 pb-4 col-1">
