@@ -1,41 +1,60 @@
-import React from 'react';
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
+function ErrorComponent() {
+  const [errorDetails, setErrorDetails] = useState({
+    errorCode: 'UNKNOWN_ERROR',
+    errorMsg: 'An unexpected error occurred. Please try again.',
+  });
 
-function ErrorComponent() {  
-
-  //error handling function
-  function handleErrors() {
-    let errorCode = "UNKNOWN_ERROR";
-    let errorMsg = "An unexpected error occurred. Please try again.";
-  
-    try {
-      
-      throw new Error("This is a simulated error");
-    } catch (error) {
-      console.error("Error:", error);
-  
-      if (error instanceof Error) {
-        errorCode = "SIMULATED_ERROR";
-        errorMsg = error.message || "Simulated error occurred.";
-      }
-    }
-    return { errorCode, errorMsg };
-      
-  }  
-    
   const navigate = useNavigate();
 
-  // Redirect to the homepage
-  const redirectToHomepage = () => {
-    navigate("/");
-  };    
+  useEffect(() => {
+    // Simulate different error scenarios
+    const simulateErrors = () => {
+      const errorType = 'NOT_FOUND';
+      
+      switch (errorType) {
+        case 'BAD_REQUEST':
+          setErrorDetails({
+            errorCode: '400',
+            errorMsg: 'Bad Request: The server did not understand the request.',
+          });
+          break;
+        case 'FORBIDDEN':
+          setErrorDetails({
+            errorCode: '403',
+            errorMsg: 'Forbidden: You do not have permission to access this resource.',
+          });
+          break;
+        case 'NOT_FOUND':
+          setErrorDetails({
+            errorCode: '404',
+            errorMsg: 'Not Found: The requested resource could not be found.',
+          });
+          break;
+        case 'INTERNAL_SERVER_ERROR':
+          setErrorDetails({
+            errorCode: '500',
+            errorMsg: 'Internal Server Error: Something went wrong on the server.',
+          });
+          break;
+        default:
+          setErrorDetails({
+            errorCode: 'UNKNOWN_ERROR',
+            errorMsg: 'An unexpected error occurred. Please try again.',
+          });
+      }
+    };
 
-  const errorDetails = handleErrors();
-    
-   function ErrorJumbo(props) {
-    // props 1: errorCode
-    // props 2: errorMsg    
+    simulateErrors();
+  }, []); // useEffect will run only once when the component mounts
+
+  const redirectToHomepage = () => {
+    navigate('/');
+  };
+
+  function ErrorJumbo(props) {
     return (
       <>
         <section className='grid-cols-1'>
