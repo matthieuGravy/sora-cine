@@ -1,7 +1,9 @@
+import ContactComponent from "../../compments/ContactComponent";
+
 function Contactpage() {
   return (
     <>
-      <h1>Contact</h1>
+      <ContactComponent/>
     </>
   );
 }
