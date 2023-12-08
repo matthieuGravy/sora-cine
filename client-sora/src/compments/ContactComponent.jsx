@@ -49,6 +49,7 @@ function ContactComponent() {
     <>
       <section className="min-w-fit max-w-md sm:max-w-lg flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
         <form class="mt-10" onSubmit={handleSubmit}>
+        <h2 className="text-2xl mb-8 text-center">Contat us</h2>
           <fieldset class="grid gap-6 sm:grid-cols-2 pb-4">
             <div class="relative z-0">
               <input

@@ -10,8 +10,27 @@ function SignupComponent() {
     password: "",
   });
 
+  const regexPatterns = {
+    // regex patterns for validation
+    name: /^[a-zA-Z]+$/,
+    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, // Requires at least 8 characters with at least one letter and one number
+  };
+
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+  
+    // Check if there is a regex pattern for validation
+    const isValid = !regexPatterns[name] || regexPatterns[name].test(value);
+  
+    // Display an error or handle it as needed
+    if (!isValid) {
+      console.error(`Invalid ${name} format`);
+      
+    }
+  
+    // Update the state regardless of validation status
     setFormData({ ...formData, [name]: value });
   };
 
@@ -48,55 +67,80 @@ function SignupComponent() {
   return (
     <>
       <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
+      <h2 className="text-2xl mb-8 text-center">Sign up</h2>
         <form
-          className="flex flex-col text-sm p-3 rounded-md"
+          className="grid gap-6 sm:grid-cols-2 pb-4"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-2xl mb-8 text-center">Sign up</h2>
+          
           {/* name Input */}
-          <label htmlFor="lastname"></label>
-          <input
-            id="lastname"
-            name="lastname"
-            className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
-            type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleInputChange}
-          />
-          {/* firstname Input */}
-          <label htmlFor="firstname"></label>
-          <input
-            id="firstname"
-            name="firstname"
-            className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
-            type="text"
-            placeholder="Firstname"
-            value={formData.firstname}
-            onChange={handleInputChange}
-          />
+
+          <div class="relative z-0">
+            <input
+              id="firstname"
+              type="text"
+              name="firstname"
+              class="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+              placeholder=" "
+              value={formData.firstname}
+              onChange={handleInputChange}
+            />
+            <label
+              class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+              htmlFor="name"
+            >
+              Name
+            </label>
+          </div>
+          
+          {/* lastname Input */}
+          <div class="relative z-0">
+              <input
+                id="lastname"
+                type="text"
+                name="lastname"
+                class="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                placeholder=" "
+                value={formData.lastname}
+                onChange={handleInputChange}
+              />
+              <label
+                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="lastname"
+              >
+                Last name
+              </label>
+            </div>
           {/* Email Input */}
-          <label htmlFor="email"></label>
-          <input
-            id="email"
-            name="email"
-            className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
-            type="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleInputChange}
-          />
+          <div class="relative z-0 col-span-2">
+              <input
+                type="text"
+                name="email"
+                class="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                placeholder=" "
+                value={formData.email}
+                onChange={handleInputChange}
+                readOnly={false}
+              />
+              <label
+                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="email"
+              >
+                Your email
+              </label>
+            </div>
           {/* Password Input */}
-          <fieldset className="relative mb-5">
+          <fieldset className="relative z-0 mb-5 col-span-2">
             <label htmlFor="password"></label>
             <input
               id="password"
               name="password"
-              className="w-full rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder=""
               value={formData.password}
               onChange={handleInputChange}
+              readOnly={false}
             />
             <button
               className="absolute right-3 top-3 cursor-pointer"
@@ -141,19 +185,27 @@ function SignupComponent() {
                 </svg>
               )}
             </button>
+            <label
+                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="email"
+              >
+                Your password
+            </label>
           </fieldset>
           {/* Date Input */}
+          <div class="relative z-0 col-span-1">
           <label htmlFor="birthdate">Date of birth</label>
           <input
             name="birthday"
-            className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
+            className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
             type="date"
             value={selectedDate}
             onChange={handleDateChange}
           />
+          </div>
           {/* Sign up Button */}
           <button
-            className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300"
+            className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300 row-start-5 col-span-2"
             type="submit"
           >
             Sign up

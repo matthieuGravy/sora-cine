@@ -42,33 +42,40 @@ function LoginComponent() {
   return (
     <>
       <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
+      <h2 className="text-2xl mb-8 text-center">Log in</h2>
         <form
-          className="flex flex-col text-sm p-3 rounded-md"
+          className="grid gap-6 sm:grid-cols-2 pb-4 rounded-md"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-2xl mb-8 text-center">Log in</h2>
-            {/* Email Input */}
-            <label htmlFor="email"></label>
-            <input
-                id="email"
+          <div class="relative z-0 col-span-2">
+              <input
+                type="text"
                 name="email"
-                className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
-                type="email"
-                placeholder="Email"
+                class="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                placeholder=" "
                 value={formData.email}
                 onChange={handleInputChange}
-            />
+                readOnly={false}
+              />
+              <label
+                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="email"
+              >
+                Your email
+              </label>
+            </div>
           {/* Password Input */}
-            <fieldset className="relative mb-5">
+          <fieldset className="relative z-0 mb-5 col-span-2">
             <label htmlFor="password"></label>
             <input
               id="password"
               name="password"
-              className="w-full rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder=""
               value={formData.password}
               onChange={handleInputChange}
+              readOnly={false}
             />
             <button
               className="absolute right-3 top-3 cursor-pointer"
@@ -113,13 +120,19 @@ function LoginComponent() {
                 </svg>
               )}
             </button>
-          </fieldset>          
+            <label
+                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="email"
+              >
+                Your password
+            </label>
+          </fieldset>         
           {/* Sign up Button */}
           <button
-            className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300"
+            className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300 row-start-5 col-span-2"
             type="submit"
           >
-            Sign in
+            Sign up
           </button>
         </form>
         <a className="flex justify-center text-sm text-blue-500" href="#">Forget password?</a>      
