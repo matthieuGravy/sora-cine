@@ -11,10 +11,40 @@ function ContactComponent() {
     content: "",
   });
 
+  const regexPatterns = {
+    name: /^[a-zA-Z]+$/,
+    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
+  };
+
+  const [validationErrors, setValidationErrors] = useState({});
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
+    // Check if there is a regex pattern for validation
+    const isValid = !regexPatterns[name] || regexPatterns[name].test(value);
+
+    // Update the validation status in the state
+    setValidationErrors({
+      ...validationErrors,
+      [name]: isValid ? "" : getErrorMessage(name),
+    });
+
+    // Update the state regardless of validation status
     setFormData({ ...formData, [name]: value });
   };
+
+  const getErrorMessage = (fieldName) => {
+    switch (fieldName) {
+      case "password":
+        return "Must be at least 8 characters long and contain at least one letter and one number.";
+      // Add more cases for other fields if needed
+      default:
+        return `Invalid ${fieldName} format`;
+    }
+  };
+
   const handleCategoryChange = (event) => {
     setSelectedCategory(event.target.value);
   };
@@ -67,6 +97,10 @@ function ContactComponent() {
               >
                 Name
               </label>
+              {/* Display validation error for firstname */}
+            {validationErrors.firstname && (
+              <p className="text-red-500">{validationErrors.firstname}</p>
+            )}
             </div>
             <div className="relative z-0">
               <input
@@ -84,6 +118,10 @@ function ContactComponent() {
               >
                 Last name
               </label>
+              {/* Display validation error for lastname */}
+            {validationErrors.lastname && (
+              <p className="text-red-500">{validationErrors.lastname}</p>
+            )}
             </div>
             <div className="relative z-0">
               <input
@@ -100,6 +138,10 @@ function ContactComponent() {
               >
                 Your email
               </label>
+              {/* Display validation error for email */}
+            {validationErrors.email && (
+              <p className="text-red-500">{validationErrors.email}</p>
+            )}
             </div>
             <div className="relative z-0 col-span-2">
               <select

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function SignupComponent() {
   const [showPassword, setShowPassword] = useState(false);
@@ -11,27 +11,37 @@ function SignupComponent() {
   });
 
   const regexPatterns = {
-    // regex patterns for validation
     name: /^[a-zA-Z]+$/,
     email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, // Requires at least 8 characters with at least one letter and one number
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
   };
 
+  const [validationErrors, setValidationErrors] = useState({});
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-  
+
     // Check if there is a regex pattern for validation
     const isValid = !regexPatterns[name] || regexPatterns[name].test(value);
-  
-    // Display an error or handle it as needed
-    if (!isValid) {
-      console.error(`Invalid ${name} format`);
-      
-    }
-  
+
+    // Update the validation status in the state
+    setValidationErrors({
+      ...validationErrors,
+      [name]: isValid ? "" : getErrorMessage(name),
+    });
+
     // Update the state regardless of validation status
     setFormData({ ...formData, [name]: value });
+  };
+
+  const getErrorMessage = (fieldName) => {
+    switch (fieldName) {
+      case "password":
+        return "Must be at least 8 characters long and contain at least one letter and one number.";
+      // Add more cases for other fields if needed
+      default:
+        return `Invalid ${fieldName} format`;
+    }
   };
 
   const handleDateChange = (event) => {
@@ -55,6 +65,10 @@ function SignupComponent() {
         console.error("Error submitting form:", errorMessage);
         throw new Error("Failed to submit form");
       }
+
+      // Clear validation errors after a successful submission
+      setValidationErrors({});
+
       // Handle success (e.g., show a success message)
       const responseData = await response.json();
       console.log("Form submitted successfully:", responseData);
@@ -91,6 +105,10 @@ function SignupComponent() {
             >
               Name
             </label>
+            {/* Display validation error for firstname */}
+            {validationErrors.firstname && (
+              <p className="text-red-500">{validationErrors.firstname}</p>
+            )}
           </div>
           
           {/* lastname Input */}
@@ -110,6 +128,10 @@ function SignupComponent() {
               >
                 Last name
               </label>
+              {/* Display validation error for lastname */}
+            {validationErrors.lastname && (
+              <p className="text-red-500">{validationErrors.lastname}</p>
+            )}
             </div>
           {/* Email Input */}
           <div className="relative z-0 col-span-2">
@@ -128,6 +150,10 @@ function SignupComponent() {
               >
                 Your email
               </label>
+              {/* Display validation error for email */}
+            {validationErrors.email && (
+              <p className="text-red-500">{validationErrors.email}</p>
+            )}
             </div>
           {/* Password Input */}
           <fieldset className="relative z-0 mb-5 col-span-2">
@@ -191,6 +217,10 @@ function SignupComponent() {
               >
                 Your password
             </label>
+            {/* Display validation error for password */}
+            {validationErrors.password && (
+              <p className="max-w-sm text-red-500">{validationErrors.password}</p>
+            )}
           </fieldset>
           {/* Date Input */}
           <div className="relative z-0 col-span-1">
