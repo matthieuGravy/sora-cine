@@ -2,17 +2,35 @@ import { useState } from "react";
 
 
 function LoginComponent() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const regexPatterns = {
+    // regex patterns for validation
+    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, // Requires at least 8 characters with at least one letter and one number
+  };
+
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+  
+    // Check if there is a regex pattern for validation
+    const isValid = !regexPatterns[name] || regexPatterns[name].test(value);
+  
+    // Display an error or handle it as needed
+    if (!isValid) {
+      console.error(`Invalid ${name} format`);
+      
+    }
+  
+    // Update the state regardless of validation status
     setFormData({ ...formData, [name]: value });
   };
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -22,7 +40,7 @@ function LoginComponent() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData}),
+        body: JSON.stringify({ ...formData }),
       });
 
       if (!response.ok) {
@@ -47,18 +65,18 @@ function LoginComponent() {
           className="grid gap-6 sm:grid-cols-2 pb-4 rounded-md"
           onSubmit={handleSubmit}
         >
-          <div class="relative z-0 col-span-2">
+          <div className="relative z-0 col-span-2">
               <input
                 type="text"
                 name="email"
-                class="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
                 value={formData.email}
                 onChange={handleInputChange}
                 readOnly={false}
               />
               <label
-                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
                 htmlFor="email"
               >
                 Your email
@@ -121,8 +139,8 @@ function LoginComponent() {
               )}
             </button>
             <label
-                class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
-                htmlFor="email"
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="password"
               >
                 Your password
             </label>
