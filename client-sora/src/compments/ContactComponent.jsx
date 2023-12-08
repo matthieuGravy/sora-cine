@@ -63,15 +63,15 @@ function ContactComponent() {
 
       if (!response.ok) {
         const errorMessage = await response.text();
-        console.error("Error submitting form:", errorMessage);
+        console.error("Error submitting form");
         throw new Error("Failed to submit form");
       }
       // Handle success (e.g., show a success message)
       const responseData = await response.json();
-      console.log("Form submitted successfully:", responseData);
+      console.log("Form submitted successfully");
     } catch (error) {
       // Handle errors (e.g., show an error message)
-      console.error("Error submitting form:", error.message);
+      console.error("Error submitting form");
     }
   };
 
