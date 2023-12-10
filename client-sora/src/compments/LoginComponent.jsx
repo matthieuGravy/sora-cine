@@ -2,17 +2,46 @@ import { useState } from "react";
 
 
 function LoginComponent() {
-    const [showPassword, setShowPassword] = useState(false);
-    const [formData, setFormData] = useState({
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const regexPatterns = {
+    // regex patterns for validation
+    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/, // Requires at least 8 characters with at least one letter and one number
+  };
+
+  const [validationErrors, setValidationErrors] = useState({});
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+
+    // Check if there is a regex pattern for validation
+    const isValid = !regexPatterns[name] || regexPatterns[name].test(value);
+
+    // Update the validation status in the state
+    setValidationErrors({
+      ...validationErrors,
+      [name]: isValid ? "" : getErrorMessage(name),
+    });
+
+    // Update the state regardless of validation status
     setFormData({ ...formData, [name]: value });
   };
-  
+
+  const getErrorMessage = (fieldName) => {
+    switch (fieldName) {
+      case "password":
+        return "Password format is incorrect.";
+      // Add more cases for other fields if needed
+      default:
+        return `Invalid ${fieldName} format`;
+    }
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -22,7 +51,7 @@ function LoginComponent() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData}),
+        body: JSON.stringify({ ...formData }),
       });
 
       if (!response.ok) {
@@ -42,33 +71,44 @@ function LoginComponent() {
   return (
     <>
       <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
+      <h2 className="text-2xl mb-8 text-center">Log in</h2>
         <form
-          className="flex flex-col text-sm p-3 rounded-md"
+          className="grid gap-6 sm:grid-cols-2 pb-4 rounded-md"
           onSubmit={handleSubmit}
         >
-          <h2 className="text-2xl mb-8 text-center">Log in</h2>
-            {/* Email Input */}
-            <label htmlFor="email"></label>
-            <input
-                id="email"
+          <div className="relative z-0 col-span-2">
+              <input
+                type="text"
                 name="email"
-                className="mb-5 rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
-                type="email"
-                placeholder="Email"
+                className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                placeholder=" "
                 value={formData.email}
                 onChange={handleInputChange}
-            />
+                readOnly={false}
+              />
+              <label
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="email"
+              >
+                Your email
+              </label>
+              {/* Display validation error for email */}
+            {validationErrors.email && (
+              <p className="text-red-500">{validationErrors.email}</p>
+            )}
+            </div>
           {/* Password Input */}
-            <fieldset className="relative mb-5">
+          <fieldset className="relative z-0 mb-5 col-span-2">
             <label htmlFor="password"></label>
             <input
               id="password"
               name="password"
-              className="w-full rounded-lg border p-3 hover:outline-none focus:outline-none hover:border-indigo-950"
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
               type={showPassword ? "text" : "password"}
-              placeholder="Password"
+              placeholder=""
               value={formData.password}
               onChange={handleInputChange}
+              readOnly={false}
             />
             <button
               className="absolute right-3 top-3 cursor-pointer"
@@ -113,13 +153,23 @@ function LoginComponent() {
                 </svg>
               )}
             </button>
-          </fieldset>          
+            <label
+                className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                htmlFor="password"
+              >
+                Your password
+            </label>
+            {/* Display validation error for password */}
+            {validationErrors.password && (
+              <p className="max-w-sm text-red-500">{validationErrors.password}</p>
+            )}
+          </fieldset>         
           {/* Sign up Button */}
           <button
-            className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300"
+            className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300 row-start-5 col-span-2"
             type="submit"
           >
-            Sign in
+            Sign up
           </button>
         </form>
         <a className="flex justify-center text-sm text-blue-500" href="#">Forget password?</a>      
