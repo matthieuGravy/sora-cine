@@ -4,14 +4,14 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 function Navbar() {
   const [isNavVisible, setIsNavVisible] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
 
   const toggleNav = () => {
     setIsNavVisible(!isNavVisible);
   };
-  const { scrollYProgress } = useScroll();
-  const { scrollY } = useScroll();
-
-  const [isHidden, setIsHidden] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     const previous = scrollY.getPrevious();
