@@ -13,6 +13,9 @@ function Homepage() {
           <Card />
           <Card />
           <Card />
+          <Card />
+          <Card />
+          <Card />
         </section>
       </article>
       <TitleCategory title="Titre category 2" />

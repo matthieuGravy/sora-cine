@@ -1,12 +1,34 @@
 import { NavLink, useMatch } from "react-router-dom";
-import { useState, Fragment } from "react";
+import { useState, Fragment, useEffect } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 function Navbar() {
   const [isNavVisible, setIsNavVisible] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+
+  const { scrollYProgress } = useScroll();
+  const { scrollY } = useScroll();
 
   const toggleNav = () => {
     setIsNavVisible(!isNavVisible);
   };
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious();
+    if (latest > previous && latest > 100) {
+      setIsHidden(true);
+    } else {
+      setIsHidden(false);
+    }
+  });
+
+  useEffect(() => {
+    if (scrollYProgress > 0.1) {
+      setIsNavVisible(true);
+    } else {
+      setIsNavVisible(false);
+    }
+  }, [scrollYProgress]);
 
   const links = [
     { id: 0, to: "/", text: "Home" },
@@ -44,7 +66,15 @@ function Navbar() {
     ));
   }
   return (
-    <header className="navbar flex flex-row justify-between flex justify-around h-8 text-slate-50 ">
+    <motion.header
+      variants={{ isVisible: { y: 0 }, isHidden: { y: -100 } }}
+      initial={{ y: -100 }}
+      animate={
+        ({ y: 0, isHidden: { y: -100 } }, isHidden ? "isHidden" : "isVisible")
+      }
+      transition={{ duration: 0.3 }}
+      className="fixed top-0 navbar h-12 flex flex-row justify-between flex justify-around h-8 text-slate-50 w-full bg-gray-950 z-50"
+    >
       <button
         onClick={toggleNav}
         className="lg:hidden xl:hidden flex-initial w-10  grid place-items-center "
@@ -116,7 +146,7 @@ function Navbar() {
           <NavLink to="/login">Login</NavLink>
         </button>
       </section>
-    </header>
+    </motion.header>
   );
 }
 
