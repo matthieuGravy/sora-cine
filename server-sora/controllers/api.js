@@ -11,6 +11,9 @@ if (!apiKey) {
   process.exit(1);
 }
 
+// tips pour la db
+const mongoURI = process.env.MONGO_URI;
+
 const db = mongoose.connection;
 db.on("error", error => {
   console.error("Erreur de connexion à la base de données:", error);
