@@ -43,29 +43,3 @@ const fetchTrendingTvShows = async () => {
 fetchTrendingTvShows();
 
 module.exports = { fetchTrendingTvShows };
-
-// const fetch = require("node-fetch");
-// const dotenv = require("dotenv");
-
-// dotenv.config();
-
-// fetchTVShows = async () => {
-//   const url = "https://api.themoviedb.org/3/trending/tv/day?language=en-US";
-//   const options = {
-//     method: "GET",
-//     headers: {
-//       accept: "application/json",
-//       Authorization:
-//         "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjOGUzN2E4MTljODU2YWZmNTFkNmVmZDExMTRkMzUzNCIsInN1YiI6IjY1NzJmMjhmMWM2MzViMDEzNzY0ODZjZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZTkQ4-T9BWqYWI-aJ1NiL0plRBct5IrQvTBFc4dyV2c",
-//     },
-//   };
-
-//   fetch(url, options)
-//     .then(res => res.json())
-//     .then(json => console.log(json))
-//     .catch(err => console.error("error:" + err));
-// };
-
-// fetchTVShows();
-
-// module.exports = { fetchTVShows };
