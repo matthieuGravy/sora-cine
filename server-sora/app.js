@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
+const { fetchTrendingTvShows } = require("./controllers/api");
 require("dotenv").config();
+const fs = require("fs").promises;
 
 app.use(express.json());
 const port = 3200;
@@ -183,6 +185,32 @@ app.delete("/user/:id", async (req, res) => {
   }
 });
 
+//user/:id/put
+
+app.put("/user/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log("ID:", id);
+
+    let user = await userModel.findById(id);
+
+    if (!user) {
+      console.log("User not found");
+      return res
+        .status(404)
+        .json({ success: false, message: "User not found" });
+    }
+
+    // Mettez à jour les propriétés du document utilisateur avec les nouvelles données de la requête
+    user = await userModel.findByIdAndUpdate(id, req.body, { new: true });
+
+    res.json({ success: true, message: user });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
 //logins/get
 
 app.get("/logins", async (req, res) => {
@@ -270,14 +298,14 @@ const videoSchema = new mongoose.Schema(
       default: Date.now,
     },
   },
-  { collection: "videos" }
+  { collection: "series" }
 );
 
-const videoModel = mongoose.model("Video", videoSchema);
+const videoModel = mongoose.model("series", videoSchema);
 
-//Videos/post
+//post
 
-app.post("/videos", async (req, res) => {
+app.get("/movies", async (req, res) => {
   try {
     const video = new videoModel(req.body);
     const savedVideo = await video.save();
@@ -291,76 +319,99 @@ app.post("/videos", async (req, res) => {
   }
 });
 
-//videos/get
+// seriesmodel
 
-app.get("/videos", async (req, res) => {
+const seriesSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    synopsis: {
+      type: String,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+    duration: {
+      type: Number,
+      required: true,
+    },
+    poster: {
+      type: String,
+      required: true,
+    },
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { collection: "series" }
+);
+
+app.post("/movies", async (req, res, next) => {
   try {
-    const videos = await videoModel.find();
-    res.json({ success: true, message: videos });
+    const { page } = req.query;
+    const data = await fetchTrendingTvShows(page);
+    const seriesdata = data.map(series => {
+      return {
+        title: series.name,
+        category: series.category,
+        age: series.age,
+        synopsis: series.synopsis,
+        url: series.url,
+        duration: series.duration,
+        poster: series.poster,
+      };
+    });
+    try {
+      const savedSeries = await seriesSchema.insertMany(seriesdata);
+      res.json({ success: true, message: savedSeries });
+      if (data && data.length !== undefined) {
+        return res.status(200).json({
+          status: 200,
+          message: `${data.length} movies found`,
+          data,
+        });
+      } else {
+        return res.status(500).json({
+          status: 500,
+          message: "Error retrieving movies data",
+        });
+      }
+    } catch (err) {
+      // Gérer spécifiquement l'erreur 401 (Unauthorized)
+      if (err.response && err.response.status === 401) {
+        return res.status(401).json({
+          status: 401,
+          message: "Unauthorized - Check your API key or permissions",
+        });
+      }
+
+      // Gérer les autres erreurs
+      return next(err);
+    }
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
+    }
   }
 });
 
 mongoose.connection.on("connected", (err, res) => {
   console.log("mongoose is connected");
-});
-
-//videos/:id/put
-
-app.put("/videos/:id", async (req, res) => {
-  try {
-    const id = req.params.id;
-    console.log("ID:", id); // Ajoutez ceci pour afficher l'ID dans la console
-
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      console.log("Invalid ObjectId"); // Ajoutez ceci pour déboguer
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid ObjectId" });
-    }
-
-    const video = await videoModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-
-    if (!video) {
-      console.log("Video not found"); // Ajoutez ceci pour déboguer
-      return res
-        .status(404)
-        .json({ success: false, message: "Video not found" });
-    }
-
-    res.json({ success: true, message: video });
-  } catch (error) {
-    console.error("Error:", error); // Ajoutez ceci pour déboguer
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
-
-//videos/:category/get
-
-app.get("/videos/:category", async (req, res) => {
-  try {
-    const categoryParam = req.params.category;
-
-    // Utilize the videoModel to search for videos by category
-    const videos = await videoModel.find({ category: categoryParam });
-
-    if (!videos || videos.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "Aucune vidéo trouvée pour cette catégorie." });
-    }
-
-    // Send the videos as a response
-    res.status(200).json(videos);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Erreur serveur lors de la récupération des vidéos." });
-  }
 });
 
 //contact form

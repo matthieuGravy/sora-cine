@@ -1,4 +1,10 @@
+require('dotenv').config();
+
 module.exports = {
   mongoURI:
-    "mongodb+srv://burak:burakbecode@cluster0.8gjkupo.mongodb.net/soracine",
+    process.env.MONGO_URI,
+  tmdbApiKey: process.env.TMDB_API_KEY,
+
+  
 };
+
