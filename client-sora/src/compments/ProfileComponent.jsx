@@ -11,7 +11,6 @@ function ProfileComponent() {
     password: "",
   });
 
-  // Maintain a state for each form field to track edit mode
   const [editModes, setEditModes] = useState({
     firstname: false,
     lastname: false,
@@ -20,15 +19,17 @@ function ProfileComponent() {
     password: false,
   });
 
+  // Separate state for password input
+  const [passwordInput, setPasswordInput] = useState("");
+
   useEffect(() => {
-    // Fetch user data from the server when the component mounts
     const fetchData = async () => {
       try {
         const response = await fetch(
           "http://localhost:3200/user/65786d43bc878cd0d66e1dae"
         );
         const userData = await response.json();
-        setUser(userData.message); // Use userData.message to get the user object
+        setUser(userData.message);
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -41,35 +42,59 @@ function ProfileComponent() {
     ? new Date(user.birthday).toISOString().split("T")[0]
     : "Loading...";
 
-  // Function to handle edit button click
   const handleEditClick = (fieldName) => {
     setEditModes((prevEditModes) => ({
       ...prevEditModes,
-      [fieldName]: !prevEditModes[fieldName], // Toggle edit mode
+      [fieldName]: !prevEditModes[fieldName],
     }));
   };
 
-  // Function to handle save button click
-  const handleSaveClick = (fieldName) => {
-    // Perform the logic to save the data to the database
-    // (You need to implement this part)
+  const handleSaveClick = async (fieldName, e) => {
+    e.preventDefault();
 
-    // After saving, toggle back to non-edit mode
-    setEditModes((prevEditModes) => ({
-      ...prevEditModes,
-      [fieldName]: false,
-    }));
+    try {
+      const updatedUser = { ...user, [fieldName]: user[fieldName] };
+
+      if (fieldName === "password") {
+        updatedUser[fieldName] = passwordInput;
+
+        // Clear passwordInput after a brief delay
+        setTimeout(() => {
+          setPasswordInput("");
+        }, 500);
+      }
+
+      const response = await fetch(`http://localhost:3200/user/${user._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (response.ok) {
+        console.log(`Successfully updated ${fieldName}`);
+      } else {
+        console.error(`Failed to update ${fieldName}`);
+      }
+
+      setEditModes((prevEditModes) => ({
+        ...prevEditModes,
+        [fieldName]: false,
+      }));
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }
   };
 
   const handleEditButton = (e, fieldName) => {
-    e.preventDefault(); // Prevent page reload
-
+    e.preventDefault();
     handleEditClick(fieldName);
   };
 
   return (
     <>
-      <section className="grid grid-cols-6 min-w-fit max-w-md sm:max-w-lg border bg-white px-6 py-14 shadow-md rounded-2xl items-center justify-between">
+      <section className="grid grid-cols-6 min-w-fit max-w-md sm:max-w-lg border bg-white px-6 py-14 shadow-md rounded-2xl items-center justify-between select-none">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -107,7 +132,7 @@ function ProfileComponent() {
         <div className="text-2xl col-span-4 pt-16 font-bold">
           {user.lastname} {user.firstname}
         </div>
-        <form className="col-span-6 col-start-1 grid grid-cols-4 justify-between">
+        <form className="col-span-6 col-start-1 grid grid-cols-4 justify-between select-none">
           <p className="pt-6 col-span-2">Name</p>
           <input
             id="firstname"
@@ -119,6 +144,14 @@ function ProfileComponent() {
               !editModes.firstname ? "border-none" : ""
             } focus:border-none focus:outline-none`}
             placeholder={user.firstname}
+            value={user.firstname}
+            onChange={(e) => setUser({ ...user, firstname: e.target.value })}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSaveClick("firstname");
+              }
+            }}
             readOnly={!editModes.firstname}
           />
           {editModes.firstname ? (
@@ -142,12 +175,37 @@ function ProfileComponent() {
             id="lastname"
             type="text"
             name="lastname"
-            className="w-full text-md font-bold col-start-1 col-span-3 placeholder:text-black placeholder:font-bold"
+            className={`w-full text-md font-bold col-start-1 col-span-3 placeholder:text-black placeholder:font-bold ${
+              editModes.lastname ? "bg-slate-100" : ""
+            } ${
+              !editModes.lastname ? "border-none" : ""
+            } focus:border-none focus:outline-none`}
             placeholder={user.lastname}
+            value={user.lastname}
+            onChange={(e) => setUser({ ...user, lastname: e.target.value })}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSaveClick("lastname");
+              }
+            }}
+            readOnly={!editModes.lastname}
           />
-          <button className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6">
-            Edit
-          </button>
+          {editModes.lastname ? (
+            <button
+              className="border-2 rounded-lg bg-blue-400 text-white px-2 py-1 col-start-6"
+              onClick={(e) => handleSaveClick("lastname", e)}
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              onClick={(e) => handleEditButton(e, "lastname")}
+            >
+              Edit
+            </button>
+          )}
 
           <p className="pt-6 col-span-2">Date of birth</p>
           <input
@@ -166,24 +224,74 @@ function ProfileComponent() {
             id="email"
             type="text"
             name="email"
-            className="w-full text-md font-bold col-start-1 col-span-3 placeholder:text-black placeholder:font-bold"
+            className={`w-full text-md font-bold col-start-1 col-span-3 placeholder:text-black placeholder:font-bold ${
+              editModes.email ? "bg-slate-100" : ""
+            } ${
+              !editModes.email ? "border-none" : ""
+            } focus:border-none focus:outline-none`}
             placeholder={user.email}
+            value={user.email}
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSaveClick("email");
+              }
+            }}
+            readOnly={!editModes.email}
           />
-          <button className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6">
-            Edit
-          </button>
+          {editModes.email ? (
+            <button
+              className="border-2 rounded-lg bg-blue-400 text-white px-2 py-1 col-start-6"
+              onClick={(e) => handleSaveClick("email", e)}
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              onClick={(e) => handleEditButton(e, "email")}
+            >
+              Edit
+            </button>
+          )}
 
           <p className="pt-6 col-span-2">Password</p>
           <input
             id="password"
-            type="text"
+            type="password"
             name="password"
-            className="w-full text-md font-bold col-start-1 col-span-3 placeholder:text-black placeholder:font-bold"
+            className={`w-full text-md font-bold col-span-3 col-start-1 placeholder:text-black placeholder:font-bold ${
+              editModes.password ? "bg-slate-100" : ""
+            } ${
+              !editModes.password ? "border-none" : ""
+            } focus:border-none focus:outline-none`}
             placeholder="********"
+            value={passwordInput}
+            onChange={(e) => setPasswordInput(e.target.value)}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                handleSaveClick("password", e);
+              }
+            }}
+            readOnly={!editModes.password}
           />
-          <button className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-5 col-span-2">
-            Edit
-          </button>
+          {editModes.password ? (
+            <button
+              className="border-2 rounded-lg bg-blue-400 text-white px-2 py-1 col-start-6"
+              onClick={(e) => handleSaveClick("password", e)}
+            >
+              Save
+            </button>
+          ) : (
+            <button
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              onClick={(e) => handleEditButton(e, "password")}
+            >
+              Edit
+            </button>
+          )}
         </form>
         <button className="border-2 border-red-500 rounded-lg col-span-6 p-5 mt-8 text-red-500 font-bold">
           Delete Account
