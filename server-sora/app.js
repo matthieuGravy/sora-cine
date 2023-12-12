@@ -267,61 +267,7 @@ app.post("/logins", async (req, res) => {
 
 //VideoModel
 
-// const videoSchema = new mongoose.Schema(
-//   {
-//     title: {
-//       type: String,
-//       required: true,
-//       unique: true,
-//     },
-//     category: {
-//       type: String,
-//       required: true,
-//     },
-//     age: {
-//       type: Number,
-//       required: true,
-//     },
-//     synopsis: {
-//       type: String,
-//     },
-//     url: {
-//       type: String,
-//       required: true,
-//     },
-//     duration: {
-//       type: Number,
-//       required: true,
-//     },
-//     created_at: {
-//       type: Date,
-//       default: Date.now,
-//     },
-//   },
-//   { collection: "series" }
-// );
-
-// const videoModel = mongoose.model("series", videoSchema);
-
-// //post
-
-// app.post("/movies", async (req, res) => {
-//   try {
-//     const video = new videoModel(req.body);
-//     const savedVideo = await video.save();
-//     res.json({ success: true, message: savedVideo });
-//   } catch (error) {
-//     if (error.name === "ValidationError") {
-//       res.status(400).json({ success: false, message: error.message });
-//     } else {
-//       res.status(500).json({ success: false, message: error.message });
-//     }
-//   }
-// });
-
-// seriesmodel
-
-const seriesSchema = new mongoose.Schema(
+const videoSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -355,6 +301,64 @@ const seriesSchema = new mongoose.Schema(
   { collection: "series" }
 );
 
+const videoModel = mongoose.model("series", videoSchema);
+
+//post
+
+app.get("/movies", async (req, res) => {
+  try {
+    const video = new videoModel(req.body);
+    const savedVideo = await video.save();
+    res.json({ success: true, message: savedVideo });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
+    }
+  }
+});
+
+// seriesmodel
+
+const seriesSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    synopsis: {
+      type: String,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+    duration: {
+      type: Number,
+      required: true,
+    },
+    poster: {
+      type: String,
+      required: true,
+    },
+    created_at: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { collection: "series" }
+);
+
 app.post("/movies", async (req, res, next) => {
   try {
     const { page } = req.query;
@@ -367,6 +371,7 @@ app.post("/movies", async (req, res, next) => {
         synopsis: series.synopsis,
         url: series.url,
         duration: series.duration,
+        poster: series.poster,
       };
     });
     try {
@@ -396,17 +401,12 @@ app.post("/movies", async (req, res, next) => {
       // Gérer les autres erreurs
       return next(err);
     }
-  } catch (err) {
-    // Gérer spécifiquement l'erreur 401 (Unauthorized)
-    if (err.response && err.response.status === 401) {
-      return res.status(401).json({
-        status: 401,
-        message: "Unauthorized - Check your API key or permissions",
-      });
+  } catch (error) {
+    if (error.name === "ValidationError") {
+      res.status(400).json({ success: false, message: error.message });
+    } else {
+      res.status(500).json({ success: false, message: error.message });
     }
-
-    // Gérer les autres erreurs
-    return next(err);
   }
 });
 
