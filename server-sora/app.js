@@ -3,10 +3,11 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 const bcrypt = require("bcrypt");
+const sendgridMail = require('@sendgrid/mail');
 require("dotenv").config();
 
 app.use(express.json());
-const port = 3200;
+const port = 1800;
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -90,6 +91,7 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+
 //user
 app.post("/user", async (req, res) => {
   try {
@@ -109,10 +111,10 @@ app.post("/user", async (req, res) => {
       res.status(500).json({ success: false, message: error.message });
     }
   }
+  
 });
 
 //user
-
 app.get("/user", async (req, res) => {
   try {
     const user = await userModel.find();
