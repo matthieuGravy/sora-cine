@@ -2,7 +2,8 @@ const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
 const cors = require("cors")
-const { getSeries, getSeriesById, PostSeries } = require("./routes/series")
+const { getSeries, getSeriesById, PostSeries } = require("./routes/series");
+const getAnimeData = require("../server-sora/controllers/api")
 const {
   getAllUsers,
   getUserById,
@@ -20,7 +21,7 @@ const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
 }
-
+getAnimeData()
 app.use(cors(corsOptions))
 
 function connectDB() {
