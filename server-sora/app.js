@@ -52,11 +52,11 @@ app.get("/", (req, res) => {
 
 //users
 
-app.get("/users", getAllUsers)
-app.get("/users/:id", getUserById)
-app.post("/users", postUser)
-app.delete("/users/:id", deleteUserById)
-app.put("/users/:id", putUserById)
+app.get("/user", getAllUsers)
+app.get("/user/:id", getUserById)
+app.post("/user", postUser)
+app.delete("/user/:id", deleteUserById)
+app.put("/user/:id", putUserById)
 
 //deletedUsers
 

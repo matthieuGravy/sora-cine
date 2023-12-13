@@ -1,4 +1,4 @@
-const { loginModel } = require(" ../models/login")
+const loginModel = require("../models/login")
 
 //login
 

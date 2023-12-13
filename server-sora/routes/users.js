@@ -1,4 +1,5 @@
 const modelUser = require("../models/users")
+const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 
 //user/post
@@ -27,7 +28,7 @@ exports.postUser = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    const user = await userModel.find()
+    const user = await modelUser.find()
     res.json({ success: true, message: user })
   } catch (error) {
     res.status(500).json({ success: false, message: error.message })
@@ -48,7 +49,7 @@ exports.getUserById = async (req, res) => {
         .json({ success: false, message: "Invalid ObjectId" })
     }
 
-    const user = await userModel.findById(id)
+    const user = await modelUser.findById(id)
 
     if (!user) {
       console.log("User not found") // Ajoutez ceci pour déboguer
@@ -76,7 +77,7 @@ exports.deleteUserById = async (req, res) => {
         .json({ success: false, message: "Invalid ObjectId" })
     }
 
-    const user = await userModel.findByIdAndDelete(id)
+    const user = await modelUser.findByIdAndDelete(id)
 
     if (!user) {
       console.log("User not found") // Ajoutez ceci pour déboguer
@@ -97,7 +98,7 @@ exports.putUserById = async (req, res) => {
     const id = req.params.id
     console.log("ID:", id)
 
-    let user = await userModel.findById(id)
+    let user = await modelUser.findById(id)
 
     if (!user) {
       console.log("User not found")
@@ -105,7 +106,7 @@ exports.putUserById = async (req, res) => {
     }
 
     // Mettez à jour les propriétés du document utilisateur avec les nouvelles données de la requête
-    user = await userModel.findByIdAndUpdate(id, req.body, { new: true })
+    user = await modelUser.findByIdAndUpdate(id, req.body, { new: true })
 
     res.json({ success: true, message: user })
   } catch (error) {
