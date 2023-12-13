@@ -32,9 +32,8 @@ function Navbar() {
 
   const links = [
     { id: 0, to: "/", text: "Home" },
-    { id: 1, to: "about", text: "About" },
-    { id: 2, to: "register", text: "Register" },
-    { id: 3, to: "contact", text: "Contact" },
+    { id: 1, to: "register", text: "Register" },
+    { id: 2, to: "contact", text: "Contact" },
   ];
   const NavLinkComponent = (props) => {
     const match = useMatch(props.to);

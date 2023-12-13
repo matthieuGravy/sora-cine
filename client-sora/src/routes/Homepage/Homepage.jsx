@@ -1,10 +1,16 @@
 import { TitleCategory } from "../../compments/TitleCategory";
-
 import Card from "../../compments/Card";
-import { Hero } from "../../compments/Hero";
+import { Hero, Herojumbo } from "../../compments/Hero";
 import { Footer } from "../../compments/Footer";
-import { motion } from "framer-motion";
+
 import goku from "../../assets/images/goku.svg";
+import {
+  motion,
+  useTransform,
+  useScroll,
+  useViewportScroll,
+} from "framer-motion";
+import { useRef } from "react";
 
 function Homepage() {
   const slides1 = [
@@ -48,24 +54,42 @@ function Homepage() {
     <Card title="Titre de la carte" image={goku} />,
     <Card title="Titre de la carte" image={goku} />,
     <Card title="Titre de la carte" image={goku} />,
+    <Card title="Titre de la carte" image={goku} />,
+    <Card title="Titre de la carte" image={goku} />,
   ];
   const slides2 = [<Card />, <Card />, <Card />];
 
+  const targetRef = (useRef < HTMLDivElement) | (null > null);
+
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+  });
+
+  const x = useTransform(scrollYProgress, [0, 1], ["1%", "-90%%"]);
+
   return (
     <>
-      <Hero />
+      <Hero>
+        <Herojumbo />
+      </Hero>
       <article className="">
         <TitleCategory title="Titre category 1" />
       </article>
-      <article className="h-[500vh]">
+      <article className="h-[50vh] w-screen">
         <TitleCategory title="Titre category 2" />
-        <section className="relative top-50 h-64 bg-red-400">
+
+        <motion.section
+          className="relative h-64 ps-36"
+          initial={{ y: 0 }}
+          animate={{ y: 50 }}
+        >
           <article
-            className="sticky top-60"
+            className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}
           >
             <motion.div
-              className="overflow-x-auto max-w-xl2 flex flex-row"
+              className="overflow-x-auto max-w-xl2 flex flex-row gap-x-4"
+              style={{ x }}
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
               transition={{ ease: "easeOut", duration: 0.5 }}
@@ -73,7 +97,7 @@ function Homepage() {
               {slides1}
             </motion.div>
           </article>
-        </section>
+        </motion.section>
       </article>
       <Footer />
     </>
