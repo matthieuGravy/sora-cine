@@ -163,13 +163,12 @@ function ProfileComponent() {
             </button>
           ) : (
             <button
-              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 ml-4 col-start-6"
               onClick={(e) => handleEditButton(e, "firstname")}
             >
               Edit
             </button>
           )}
-
           <p className="pt-6 col-span-2">Surname</p>
           <input
             id="lastname"
@@ -200,23 +199,54 @@ function ProfileComponent() {
             </button>
           ) : (
             <button
-              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 ml-4 col-start-6"
               onClick={(e) => handleEditButton(e, "lastname")}
             >
               Edit
             </button>
           )}
-
           <p className="pt-6 col-span-2">Date of birth</p>
-          <input
-            id="birthday"
-            type="text"
-            name="birthday"
-            className="w-full text-md font-bold col-start-1 col-span-3 placeholder:text-black placeholder:font-bold"
-            placeholder={formattedBirthday}
-          />
-          <button className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6">
+
+          {editModes.birthday ? (
+            <input
+              name="birthday"
+              className={`w-full text-md font-bold col-start-1 col-span-3 appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 ${
+                editModes.birthday ? "bg-slate-100" : ""
+              } ${
+                !editModes.birthday ? "border-none" : ""
+              } focus:border-none focus:outline-none`}
+              type="date"
+              value={user.birthday}
+              onChange={(e) => setUser({ ...user, birthday: e.target.value })}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSaveClick("birthday", e);
+                }
+              }}
+              readOnly={!editModes.birthday}
+            />
+          ) : (
+            <span className="text-md font-bold col-start-1 col-span-3 text-gray-900 mr-2">
+              {formattedBirthday}
+            </span>
+          )}
+          <button
+            className={`border-2 rounded-lg bg-gray-400 text-white col-start-6 ml-4 px-2 py-1 ${
+              !editModes.birthday ? "" : "hidden"
+            }`}
+            onClick={(e) => handleEditButton(e, "birthday")}
+          >
             Edit
+          </button>
+
+          <button
+            className={`border-2 rounded-lg bg-blue-400 text-white px-2 py-1 col-start-6 ${
+              !editModes.birthday ? "hidden" : ""
+            }`}
+            onClick={(e) => handleSaveClick("birthday", e)}
+          >
+            Save
           </button>
 
           <p className="pt-6 col-span-2">Email</p>
@@ -249,13 +279,12 @@ function ProfileComponent() {
             </button>
           ) : (
             <button
-              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 ml-4 col-start-6"
               onClick={(e) => handleEditButton(e, "email")}
             >
               Edit
             </button>
           )}
-
           <p className="pt-6 col-span-2">Password</p>
           <input
             id="password"
@@ -286,7 +315,7 @@ function ProfileComponent() {
             </button>
           ) : (
             <button
-              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 col-start-6"
+              className="border-2 rounded-lg bg-gray-400 text-white px-2 py-1 ml-4 col-start-6"
               onClick={(e) => handleEditButton(e, "password")}
             >
               Edit
