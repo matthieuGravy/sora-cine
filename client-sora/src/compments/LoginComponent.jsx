@@ -169,7 +169,7 @@ function LoginComponent() {
             className="rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300 row-start-5 col-span-2"
             type="submit"
           >
-            Sign up
+            Sign in
           </button>
         </form>
         <a className="flex justify-center text-sm text-blue-500" href="#">Forget password?</a>      

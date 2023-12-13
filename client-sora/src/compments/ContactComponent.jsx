@@ -12,7 +12,8 @@ function ContactComponent() {
   });
 
   const regexPatterns = {
-    name: /^[a-zA-Z]+$/,
+    firstname: /^[a-zA-Z0-9_-]+$/,
+    lastname: /^[a-zA-Z0-9_-]+$/,
     email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
     password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
   };
@@ -79,7 +80,7 @@ function ContactComponent() {
     <>
       <section className="min-w-fit max-w-md sm:max-w-lg flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
         <form className="mt-10" onSubmit={handleSubmit}>
-        <h2 className="text-2xl mb-8 text-center">Contat us</h2>
+          <h2 className="text-2xl mb-8 text-center">Contact us</h2>
           <fieldset className="grid gap-6 sm:grid-cols-2 pb-4">
             <div className="relative z-0">
               <input
@@ -98,9 +99,9 @@ function ContactComponent() {
                 Name
               </label>
               {/* Display validation error for firstname */}
-            {validationErrors.firstname && (
-              <p className="text-red-500">{validationErrors.firstname}</p>
-            )}
+              {validationErrors.firstname && (
+                <p className="text-red-500">{validationErrors.firstname}</p>
+              )}
             </div>
             <div className="relative z-0">
               <input
@@ -119,9 +120,9 @@ function ContactComponent() {
                 Last name
               </label>
               {/* Display validation error for lastname */}
-            {validationErrors.lastname && (
-              <p className="text-red-500">{validationErrors.lastname}</p>
-            )}
+              {validationErrors.lastname && (
+                <p className="text-red-500">{validationErrors.lastname}</p>
+              )}
             </div>
             <div className="relative z-0">
               <input
@@ -139,9 +140,9 @@ function ContactComponent() {
                 Your email
               </label>
               {/* Display validation error for email */}
-            {validationErrors.email && (
-              <p className="text-red-500">{validationErrors.email}</p>
-            )}
+              {validationErrors.email && (
+                <p className="text-red-500">{validationErrors.email}</p>
+              )}
             </div>
             <div className="relative z-0 col-span-2">
               <select
@@ -180,14 +181,13 @@ function ContactComponent() {
                 Your message
               </label>
             </div>
-          <button
-            type="submit"
-            className="col-span-2 rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300"
-          >
-            Send Message
-          </button>
+            <button
+              type="submit"
+              className="col-span-2 rounded-lg border p-3 bg-gradient-to-r from-gray-800 bg-indigo-950 text-white hover:bg-slate-400 duration-300"
+            >
+              Send Message
+            </button>
           </fieldset>
-          
         </form>
       </section>
     </>
