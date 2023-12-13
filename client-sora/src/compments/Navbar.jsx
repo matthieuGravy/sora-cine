@@ -2,6 +2,8 @@ import { NavLink, useMatch } from "react-router-dom";
 import { useState, Fragment, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
+import sora from "../assets/images/sora.svg";
+
 function Navbar() {
   const [isNavVisible, setIsNavVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -94,7 +96,7 @@ function Navbar() {
         </svg>
       </button>
       <button className="flex-initial w-36">
-        <img src="../assets/images/sora.svg" alt="Sora" />
+        <img src={sora} alt="Sora" />
       </button>
       <nav
         className={`z-50 lg:z-0 flex-1 lg:flex h-full w-full lg:h-auto backdrop-blur lg:backdrop-blur-none left-0 top:-1 lg:grid lg:place-items-center ${

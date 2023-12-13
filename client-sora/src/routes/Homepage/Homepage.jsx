@@ -4,6 +4,9 @@ import { Hero, Herojumbo } from "../../compments/Hero";
 import { Footer } from "../../compments/Footer";
 
 import goku from "../../assets/images/goku.svg";
+import gto from "../../assets/images/gto.png";
+import bleach from "../../assets/images/bleach.png";
+import onep from "../../assets/images/onep.png";
 import {
   motion,
   useTransform,
@@ -66,6 +69,8 @@ function Homepage() {
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-90%%"]);
+
+  const images = [goku, gto, bleach, onep];
 
   return (
     <>

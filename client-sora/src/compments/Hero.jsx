@@ -1,4 +1,8 @@
 import goku from "../assets/images/goku.svg";
+import gto from "../assets/images/gto.png";
+import onep from "../assets/images/onep.png";
+import bleach from "../assets/images/bleach.png";
+import { useState } from "react";
 
 function Herojumbo() {
   //props 4 :title
@@ -27,29 +31,57 @@ function Herojumbo() {
 }
 
 function Hero(props) {
+  const images = [goku, gto, onep, bleach];
+  const [currentIndex, setCurrentIndex] = useState(0);
   const backgroundGoku = {
     background:
       "linear-gradient(90deg, rgba(13,148,136,1) 0%, rgba(162,28,175,1) 100%)",
   };
+
+  const handleNextClick = () => {
+    setCurrentIndex((prevIndex) => {
+      if (prevIndex === images.length - 1) {
+        return 0;
+      } else {
+        return prevIndex + 1;
+      }
+    });
+  };
+  const handlePrevClick = () => {
+    setCurrentIndex((prevIndex) => {
+      if (prevIndex === 0) {
+        return images.length - 1;
+      } else {
+        return prevIndex - 1;
+      }
+    });
+  };
+
   return (
-    <section className="grid xl:grid-cols-2 " style={props.gradient}>
+    <section className="grid xl:grid-cols-2 h-screen" style={props.gradient}>
       <article className="place-self-end">
         {props.children}
         <div className="xl:flex w-60 hidden">
           <p className="w-20 py-10 text-center bg-red-900 text-slate-100">
             Screen
           </p>
-          <button className="w-20 py-10 bg-slate-200 text-slate-800">
+          <button
+            className="w-20 py-10 bg-slate-200 text-slate-800"
+            onClick={handlePrevClick}
+          >
             Prev
           </button>
-          <button className="w-20 py-10 bg-slate-200 text-slate-800">
+          <button
+            className="w-20 py-10 bg-slate-200 text-slate-800"
+            onClick={handleNextClick}
+          >
             Next
           </button>
         </div>
       </article>
-      <figure>
+      <figure className="grid place-items-end">
         <img
-          src={props.image}
+          src={images[currentIndex]}
           alt={props.alt}
           loading="lazy"
           className="xl:max-w-lg lg:max-w-sm max-w-xs mx-auto"
