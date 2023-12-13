@@ -73,7 +73,7 @@ function Navbar() {
         ({ y: 0, isHidden: { y: -100 } }, isHidden ? "isHidden" : "isVisible")
       }
       transition={{ duration: 0.3 }}
-      className="fixed top-0 navbar h-12 flex flex-row justify-between flex justify-around h-8 text-slate-50 w-full bg-gray-950 z-50"
+      className="fixed top-0 navbar h-14 flex flex-row justify-between flex justify-around h-8 text-slate-50 w-full bg-gray-950 z-50"
     >
       <button
         onClick={toggleNav}

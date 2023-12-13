@@ -1,13 +1,9 @@
 //available props {image, title, alt}
 function Card(props) {
   return (
-    <figure className="relative w-28 h-48 sm:w-36 sm:h-56 md:w-44 md:h-64 lg:w-52 lg:h-80 border-solid m-3 ">
-      <img
-        className="w-screen h-40 sm:h-48 md:h-56 lg:h-72"
-        src={props.image}
-        alt={props.alt}
-      />
-
+    <figure className="relative block w-28 h-52  border-solid ">
+      <img className="w-screen " src={props.image} alt={props.alt} />
+      {/* Overlay 
       <figure className="svg-container absolute top-1 right-1 sm:top-3 sm:right-2 w-5 h-5 backdrop-blur-sm">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +35,10 @@ function Card(props) {
           />
         </svg>
       </figure>
+      */}
 
       {/* Title */}
-      <h1 className="p-1 pl-2 text-xs sm:text-md md:text-lg lg:text-xl xl:text-xl font-bold text-slate-50">
+      <h1 className="p-1 text-xs sm:text-md md:text-lg lg:text-xl xl:text-xl font-bold text-slate-50">
         {props.title}
       </h1>
     </figure>
