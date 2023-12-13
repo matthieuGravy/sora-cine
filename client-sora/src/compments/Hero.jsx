@@ -33,10 +33,6 @@ function Herojumbo() {
 function Hero(props) {
   const images = [goku, gto, onep, bleach];
   const [currentIndex, setCurrentIndex] = useState(0);
-  const backgroundGoku = {
-    background:
-      "linear-gradient(90deg, rgba(13,148,136,1) 0%, rgba(162,28,175,1) 100%)",
-  };
 
   const handleNextClick = () => {
     setCurrentIndex((prevIndex) => {
@@ -58,7 +54,13 @@ function Hero(props) {
   };
 
   return (
-    <section className="grid xl:grid-cols-2 h-screen" style={props.gradient}>
+    <section
+      className="grid xl:grid-cols-2 h-screen"
+      style={{
+        backgroundImage:
+          "linear-gradient(90deg, rgba(13,148,136,1) 0%, rgba(162,28,175,1) 100%)",
+      }}
+    >
       <article className="place-self-end">
         {props.children}
         <div className="xl:flex w-60 hidden">

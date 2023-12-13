@@ -2,7 +2,7 @@
 function Card(props) {
   return (
     <div className="flex">
-      <figure className="relative block w-28 border-solid bg-red-700">
+      <figure className="relative block w-28 ">
         <img className="w-screen" src={props.image} alt={props.alt} />
         {/* Overlay 
           <figure className="svg-container absolute top-1 right-1 sm:top-3 sm:right-2 w-5 h-5 backdrop-blur-sm">
@@ -39,7 +39,7 @@ function Card(props) {
           */}
 
         {/* Title */}
-        <h1 className="p-1 text-xs font-bold text-slate-50">{props.title}</h1>
+        <h1 className="p-1 text-xs  text-slate-50">{props.title}</h1>
       </figure>
     </div>
   );
