@@ -60,4 +60,4 @@ async function getMystery() {
 }
 
 
-module.exports = {getCrime,getFantasy,getActAdv,getComedy,getMystery}
+module.exports = {getCrime,getFantasy,getActAdv,getComedy,getMystery,getAllSeries}
