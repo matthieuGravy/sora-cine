@@ -2,7 +2,10 @@ const express = require("express")
 const mongoose = require("mongoose")
 const app = express()
 const cors = require("cors")
-const { getSeries, getSeriesById, PostSeries } = require("./routes/series")
+const seriesModel = require('./models/series');
+const { getSeries, getSeriesById, PostSeries } = require("./routes/series");
+const { getAnimeData } = require("./controllers/api");
+
 const {
   getAllUsers,
   getUserById,
@@ -20,7 +23,6 @@ const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
 }
-
 app.use(cors(corsOptions))
 
 function connectDB() {
@@ -142,6 +144,40 @@ app.get("/contact", async (req, res) => {
     res.status(500).json({ success: false, message: error.message })
   }
 })
+
+async function saveSeriesToDatabase() {
+  const seriesData = await getAnimeData();
+
+  for (const serie of seriesData) {
+    try {
+      const seriesInstance = new seriesModel({
+        backdrop_path: serie.backdrop_path,
+        first_air_date: new Date(serie.first_air_date),
+        genre_ids: serie.genre_ids,
+        id: serie.id,
+        name: serie.name,
+        origin_country: serie.origin_country,
+        original_language: serie.original_language,
+        original_name: serie.original_name,
+        overview: serie.overview,
+        popularity: serie.popularity,
+        poster_path: serie.poster_path,
+        vote_average: serie.vote_average,
+        vote_count: serie.vote_count,
+        url: serie.url,
+      });
+
+      await seriesInstance.save();
+      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
+    } catch (error) {
+      console.error(`Erreur lors de l'enregistrement de la série ${serie.name}:`, error);
+      // Gérer l'erreur selon vos besoins
+    }
+  }
+}
+
+
+saveSeriesToDatabase()
 
 mongoose.connection.on("connected", (err, res) => {
   console.log("mongoose is connected")
