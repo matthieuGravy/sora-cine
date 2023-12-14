@@ -152,7 +152,9 @@ function ContactComponent() {
                 className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
               >
-                <option selected>Choose a category</option>
+                <option value="" disabled>
+                  Select a category
+                </option>
                 <option value="01">catégories 01</option>
                 <option value="02">catégories 02</option>
                 <option value="03">catégories 03</option>
