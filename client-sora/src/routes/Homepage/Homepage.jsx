@@ -2,7 +2,7 @@ import { TitleCategory } from "../../compments/TitleCategory";
 import Card from "../../compments/Card";
 import { Hero, Herojumbo } from "../../compments/Hero";
 import { Footer } from "../../compments/Footer";
-
+import goku from "../../assets/images/goku.svg";
 
 import {
   motion,
@@ -10,6 +10,7 @@ import {
   useScroll,
   useViewportScroll,
 } from "framer-motion";
+
 import { useRef } from "react";
 
 function Homepage() {
@@ -59,16 +60,12 @@ function Homepage() {
   ];
   const slides2 = [<Card />, <Card />, <Card />];
 
-  const targetRef = (useRef < HTMLDivElement) | (null > null);
-
+  const targetRef = useRef < HTMLDivElement > null;
   const { scrollYProgress } = useScroll({
     target: targetRef,
   });
 
   const x = useTransform(scrollYProgress, [0, 1], ["1%", "-90%%"]);
-
-
-
 
   return (
     <>
