@@ -23,7 +23,6 @@ async function getVideoKey(id) {
       // console.log('Video Key:', key);
       return key;
     } else {
-      console.error('No video key found.');
       return null;
     }
   } catch (error) {
@@ -44,7 +43,7 @@ async function getAnimeData() {
     }
   };
 
-  for (let index = 1; index <= 1; index++) {
+  for (let index = 1; index <= 4; index++) {
     try {
       const url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${index}&sort_by=popularity.desc&with_genres=16&with_origin_country=JP&api_key=${apiKey}`;
       const response = await fetch(url, options);
@@ -80,7 +79,7 @@ async function getAnimeData() {
     }
 
   };
-  console.log(animeList)
+  // console.log(animeList)
   return animeList;
 };
 
