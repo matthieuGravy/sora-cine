@@ -39,7 +39,7 @@ function Card(props) {
           */}
 
         {/* Title */}
-        <h1 className="p-1 text-xs  text-slate-50">{props.title}</h1>
+        <h1 className="p-1 text-xs text-slate-50">{props.title}</h1>
       </figure>
     </div>
   );
