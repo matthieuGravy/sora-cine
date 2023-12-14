@@ -20,7 +20,6 @@ async function getVideoKey(id) {
 
     if (data.results && data.results.length > 0) {
       const key = data.results[0].key;
-      // console.log('Video Key:', key);
       return key;
     } else {
       return null;
@@ -43,7 +42,7 @@ async function getAnimeData() {
     }
   };
 
-  for (let index = 1; index <= 4; index++) {
+  for (let index = 1; index <= 6; index++) {
     try {
       const url = `https://api.themoviedb.org/3/discover/tv?include_adult=false&include_null_first_air_dates=false&language=en-US&page=${index}&sort_by=popularity.desc&with_genres=16&with_origin_country=JP&api_key=${apiKey}`;
       const response = await fetch(url, options);
@@ -67,15 +66,15 @@ async function getAnimeData() {
     const poster = element.poster_path;
     element.poster_path = standartPath + poster;
 
-    //Poue celui de la video
+    //Pour celui de la video
     try {
       const key = await getVideoKey(element.id);
       element.url = `https://www.youtube.com/embed/${key}`;
+      if (!key) {
+        element.url = 'https://www.youtube.com/embed/-G9BqkgZXRA';
+      }
     } catch (error) {
       console.error('Error fetching video key:', error);
-      // Gérer l'erreur selon vos besoins
-      // Par exemple, vous pourriez attribuer une valeur par défaut à element.url
-      element.url = 'https://www.youtube.com/embed/-G9BqkgZXRA';
     }
 
   };
