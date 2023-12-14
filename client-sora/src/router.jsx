@@ -7,7 +7,6 @@ import Landingpage from "./routes/Landingpage.jsx/Landingpage";
 import Registerpage from "./routes/registerpage/registerpage";
 import Loginpage from "./routes/Loginpage/Loginpage";
 import Contactpage from "./routes/Contactpage/Contactpage";
-import Aboutpage from "./routes/Aboutpage/Aboutpage";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +19,6 @@ export const router = createBrowserRouter([
       { path: "register", element: <Registerpage /> },
       { path: "login", element: <Loginpage /> },
       { path: "contact", element: <Contactpage /> },
-      { path: "about", element: <Aboutpage /> },
     ],
   },
 ]);

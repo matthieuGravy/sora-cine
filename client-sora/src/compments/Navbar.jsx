@@ -2,6 +2,8 @@ import { NavLink, useMatch } from "react-router-dom";
 import { useState, Fragment, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
+import sora from "../assets/images/sora.svg";
+
 function Navbar() {
   const [isNavVisible, setIsNavVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
@@ -32,9 +34,8 @@ function Navbar() {
 
   const links = [
     { id: 0, to: "/", text: "Home" },
-    { id: 1, to: "about", text: "About" },
-    { id: 2, to: "register", text: "Register" },
-    { id: 3, to: "contact", text: "Contact" },
+    { id: 1, to: "register", text: "Register" },
+    { id: 2, to: "contact", text: "Contact" },
   ];
   const NavLinkComponent = (props) => {
     const match = useMatch(props.to);
@@ -73,7 +74,7 @@ function Navbar() {
         ({ y: 0, isHidden: { y: -100 } }, isHidden ? "isHidden" : "isVisible")
       }
       transition={{ duration: 0.3 }}
-      className="fixed top-0 navbar h-12 flex flex-row justify-between flex justify-around h-8 text-slate-50 w-full bg-gray-950 z-50"
+      className="fixed top-0 navbar h-14 flex flex-row justify-between flex justify-around h-8 text-slate-50 w-full bg-gray-950 z-50"
     >
       <button
         onClick={toggleNav}
@@ -95,7 +96,7 @@ function Navbar() {
         </svg>
       </button>
       <button className="flex-initial w-36">
-        <img src="../assets/images/sora.svg" alt="Sora" />
+        <img src={sora} alt="Sora" />
       </button>
       <nav
         className={`z-50 lg:z-0 flex-1 lg:flex h-full w-full lg:h-auto backdrop-blur lg:backdrop-blur-none left-0 top:-1 lg:grid lg:place-items-center ${
