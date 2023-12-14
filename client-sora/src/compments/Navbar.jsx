@@ -3,6 +3,7 @@ import { useState, Fragment, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 import sora from "../assets/images/sora.svg";
+import SearchComponent from "./SearchComponent";
 
 function Navbar() {
   const [isNavVisible, setIsNavVisible] = useState(false);
@@ -126,6 +127,9 @@ function Navbar() {
           <Maplinks />
         </ul>
       </nav>
+      <button>
+        <SearchComponent />
+      </button>
       <section className="flex-1 flex justify-end ">
         <button className="mx-2 grid place-items-center">
           <svg

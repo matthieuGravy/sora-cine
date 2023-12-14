@@ -1,7 +1,8 @@
+import ProfileComponent from "../../../components/ProfileComponent";
 function() {
   return (
     <div>
-      <h1>Myprofilepage</h1>
+       <ProfileComponent />
     </div>
   );
 }
