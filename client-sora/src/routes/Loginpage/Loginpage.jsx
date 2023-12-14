@@ -5,9 +5,8 @@ import ProfileComponent from "../../compments/ProfileComponent";
 function Loginpage() {
   return (
     <>
-      <section className="pt-6 pb-12">
+      <section className="pt-24 pb-12 grid grid place-items-center">
         <LoginComponent />
-        <ProfileComponent />
       </section>
       <Footer>
         <Footerlanding />
