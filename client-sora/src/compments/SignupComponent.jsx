@@ -11,7 +11,7 @@ function SignupComponent() {
     email: "",
     password: "",
   });
-  const [formSubmitted, setFormSubmitted] = useState(false); // Nouvelle variable d'état
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const regexPatterns = {
     name: /^[a-zA-Z]+$/,
@@ -74,7 +74,6 @@ function SignupComponent() {
 
       // Handle success (e.g., show a success message)
       const responseData = await response.json();
-      console.log("Form submitted successfully:", responseData);
       setFormSubmitted(true);
     } catch (error) {
       // Handle errors (e.g., show an error message)

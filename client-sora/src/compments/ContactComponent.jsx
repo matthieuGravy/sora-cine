@@ -10,6 +10,7 @@ function ContactComponent() {
     subject: "",
     content: "",
   });
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   const regexPatterns = {
     firstname: /^[a-zA-Z0-9_-]+$/,
@@ -70,6 +71,7 @@ function ContactComponent() {
       // Handle success (e.g., show a success message)
       const responseData = await response.json();
       console.log("Form submitted successfully");
+      setFormSubmitted(true);
     } catch (error) {
       // Handle errors (e.g., show an error message)
       console.error("Error submitting form");
@@ -152,17 +154,15 @@ function ContactComponent() {
                 className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
                 placeholder=" "
               >
-                <option selected>Choose a category</option>
-                <option value="01">catégories 01</option>
-                <option value="02">catégories 02</option>
-                <option value="03">catégories 03</option>
-                <option value="04">catégories 04</option>
-                <option value="05">catégories 05</option>
-                <option value="06">catégories 06</option>
-                <option value="07">catégories 07</option>
-                <option value="08">catégories 08</option>
-                <option value="09">catégories 09</option>
-                <option value="10">catégories 10</option>
+                <option value="">Choose a category</option>
+                <option value="1">Issue with authentication</option>
+                <option value="02">Issue with my account</option>
+                <option value="03">Technical problem</option>
+                <option value="04">General questions</option>
+                <option value="05">Feedback and suggestions</option>
+                <option value="06">Report a bug</option>
+                <option value="07">Feature request</option>
+                <option value="08">Other (specify)</option>
               </select>
             </div>
             <div className="relative z-0 col-span-2">
