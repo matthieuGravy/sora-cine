@@ -49,7 +49,7 @@ function LoginComponent() {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3200/logins", {
+      const response = await fetch("http://localhost:3200/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
