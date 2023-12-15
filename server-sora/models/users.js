@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema(
   {
@@ -21,6 +22,8 @@ const userSchema = new mongoose.Schema(
       validate: {
         validator: (value) => {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+        validator: (value) => {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
         },
         message: "Invalid email address",
       },
@@ -36,7 +39,9 @@ const userSchema = new mongoose.Schema(
   },
   { collection: "users" }
 )
+)
 
-const userModel = mongoose.model("User", userSchema)
+const userModel = mongoose.model("Users", userSchema)
 
+module.exports = userModel
 module.exports = userModel

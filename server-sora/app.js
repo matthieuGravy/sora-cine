@@ -34,90 +34,89 @@ app.use(session({
 
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
+  res.send("Hello World!")
+})
 
 //users
-app.get("/user", getAllUsers);
-app.get("/user/:id", getUserById);
-app.post("/user", postUser);
-app.delete("/user/:id", deleteUserById);
-app.put("/user/:id", putUserById);
+app.get("/user", getAllUsers)
+app.get("/user/:id", getUserById)
+app.post("/user", postUser)
+app.delete("/user/:id", deleteUserById)
+app.put("/user/:id", putUserById)
 
 //deletedUsers
-app.post("/deletedUsers", postDeletedUsers);
+app.post("/deletedUsers", postDeletedUsers)
 
 //login
-app.post("/login", postLogin);
-app.get("/login", getLogin);
+app.post("/login", postLogin)
+app.get("/login", getLogin)
 
 //Contact
-app.get("/contact", getContact);
-app.post("/contact", postContact);
+app.get("/contact", getContact)
+app.post("/contact", postContact)
 
 app.get("/series", requireAuth, async (req, res) => {
   try {
-    const liste = await getAllSeries();
-    res.send(liste);
+    const liste = await getAllSeries()
+    res.send(liste)
   } catch (error) {
-    console.error("Erreur lors de l'exécution de getSeries:", error);
-    res.status(500).send("Erreur interne du serveur");
+    console.error("Erreur lors de l'exécution de getSeries:", error)
+    res.status(500).send("Erreur interne du serveur")
   }
-});
+})
 app.get("/series/mystery", async (req, res) => {
   try {
-    const liste = await getMystery();
-    res.send(liste);
+    const liste = await getMystery()
+    res.send(liste)
   } catch (error) {
-    console.error("Erreur lors de l'exécution de getSeries:", error);
-    res.status(500).send("Erreur interne du serveur");
+    console.error("Erreur lors de l'exécution de getSeries:", error)
+    res.status(500).send("Erreur interne du serveur")
   }
-});
+})
 app.get("/series/crime", async (req, res) => {
   try {
-    const liste = await getCrime();
-    res.send(liste);
+    const liste = await getCrime()
+    res.send(liste)
   } catch (error) {
-    console.error("Erreur lors de l'exécution de getSeries:", error);
-    res.status(500).send("Erreur interne du serveur");
+    console.error("Erreur lors de l'exécution de getSeries:", error)
+    res.status(500).send("Erreur interne du serveur")
   }
-});
+})
 app.get("/series/fantasy", async (req, res) => {
   try {
-    const liste = await getFantasy();
-    res.send(liste);
+    const liste = await getFantasy()
+    res.send(liste)
   } catch (error) {
-    console.error("Erreur lors de l'exécution de getSeries:", error);
-    res.status(500).send("Erreur interne du serveur");
+    console.error("Erreur lors de l'exécution de getSeries:", error)
+    res.status(500).send("Erreur interne du serveur")
   }
-});
+})
 app.get("/series/act_adv", async (req, res) => {
   try {
-    const liste = await getActAdv();
-    res.send(liste);
+    const liste = await getActAdv()
+    res.send(liste)
   } catch (error) {
-    console.error("Erreur lors de l'exécution de getSeries:", error);
-    res.status(500).send("Erreur interne du serveur");
+    console.error("Erreur lors de l'exécution de getSeries:", error)
+    res.status(500).send("Erreur interne du serveur")
   }
-});
+})
 app.get("/series/comedy", async (req, res) => {
   try {
-    const liste = await getComedy();
-    res.send(liste);
+    const liste = await getComedy()
+    res.send(liste)
   } catch (error) {
-    console.error("Erreur lors de l'exécution de getSeries:", error);
-    res.status(500).send("Erreur interne du serveur");
+    console.error("Erreur lors de l'exécution de getSeries:", error)
+    res.status(500).send("Erreur interne du serveur")
   }
-});
-
+})
 
 mongoose.connection.on("connected", (err, res) => {
-  console.log("mongoose is connected");
-});
+  console.log("mongoose is connected")
+})
 
-connectDB();
+connectDB()
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
-});
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+

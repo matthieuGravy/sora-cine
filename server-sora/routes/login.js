@@ -33,7 +33,7 @@ exports.postLogin = async (req, res) => {
 
   try {
     // Étape 1: Vérifier si l'email existe dans la collection "users"
-    const user = await userModel.findOne({ email })
+    const user = await modelUser.findOne({ email })
 
     if (!user) {
       // Email non trouvé
