@@ -1,5 +1,5 @@
 const loginModel = require("../models/login")
-const userModel = require("../models/users")
+const modelUser = require("../models/users")
 const session = require("express-session");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
