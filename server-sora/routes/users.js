@@ -1,10 +1,15 @@
 const modelUser = require("../models/users")
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const bodyParser = require("body-parser")
+const nodemailer = require("nodemailer")
+bodyParser.json()
 
 //user/post
 
 exports.postUser = async (req, res) => {
+  let userEmail // Declare a variable to store the email
+
   try {
     const { password, ...userData } = req.body
     const hashedPassword = await bcrypt.hash(password, 10)
@@ -14,7 +19,10 @@ exports.postUser = async (req, res) => {
     })
     const savedUser = await user.save()
 
+    userEmail = user.email // Assign the email value to the variable
+
     res.json({ success: true, message: savedUser })
+    sendWelcomeEmail(userEmail) // Use the variable in the function
   } catch (error) {
     if (error.name === "ValidationError") {
       res.status(400).json({ success: false, message: error.message })
@@ -112,5 +120,29 @@ exports.putUserById = async (req, res) => {
   } catch (error) {
     console.error("Error:", error)
     res.status(500).json({ success: false, message: error.message })
+  }
+}
+
+async function sendWelcomeEmail(email) {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "soracine.service@gmail.com",
+        pass: "wywc gtrb elkw deew", // Remplacez par le mot de passe d'application généré
+      },
+    })
+
+    const mailOptions = {
+      from: "soracine.service@gmail.com",
+      to: email,
+      subject: "Bienvenue sur Sora Cine !",
+      text: "Bienvenue sur Sora Cine depuis Node",
+    }
+
+    const info = await transporter.sendMail(mailOptions)
+    console.log("E-mail envoyé :", info.response)
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'e-mail :", error)
   }
 }
