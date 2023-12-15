@@ -41,6 +41,11 @@ function Navbar() {
     { id: 1, to: "register", text: "Register" },
     { id: 2, to: "contact", text: "Contact" },
   ];
+  const linksLoggedIn = [
+    { id: 0, to: "/", text: "Anime" },
+    { id: 1, to: "settings", text: "Settings" },
+  ];
+
   const NavLinkComponent = (props) => {
     const match = useMatch(props.to);
     const handleClick = () => {
@@ -65,6 +70,13 @@ function Navbar() {
 
   function Maplinks() {
     return links.map((link) => (
+      <Fragment key={link.id}>
+        <NavLinkComponent to={link.to} text={link.text} />
+      </Fragment>
+    ));
+  }
+  function MaplinksLoggedIn() {
+    return linksLoggedIn.map((link) => (
       <Fragment key={link.id}>
         <NavLinkComponent to={link.to} text={link.text} />
       </Fragment>
@@ -127,35 +139,38 @@ function Navbar() {
               />
             </svg>
           </button>
-          <Maplinks />
+          {isLoggedIn ? <MaplinksLoggedIn /> : <Maplinks />}
         </ul>
       </nav>
-      <button>
-        <SearchComponent />
-      </button>
+
       <section className="flex-1 flex justify-end ">
-        <button className="mx-2 grid place-items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
         {isLoggedIn ? (
-          <button className="mx-2 ">
-            <NavLink to="/logout" onClick={logout}>
-              Logout
-            </NavLink>
-          </button>
+          <>
+            <article>
+              <SearchComponent />
+            </article>
+            <button className="mx-2 grid place-items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                />
+              </svg>
+            </button>
+            <button className="mx-2 ">
+              <NavLink to="/logout" onClick={logout}>
+                Logout
+              </NavLink>
+            </button>
+          </>
         ) : (
           <button className="mx-2 ">
             <NavLink to="/login">Login</NavLink>
