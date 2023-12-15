@@ -1,63 +1,36 @@
-const express = require("express")
-const mongoose = require("mongoose")
-const app = express()
-const {
-  getCrime,
-  getFantasy,
-  getActAdv,
-  getComedy,
-  getMystery,
-  getAllSeries,
-} = require("./models/genres")
-const cors = require("cors")
-const { getContact, postContact } = require("./routes/contact")
-const {
-  getAllUsers,
-  getUserById,
-  postUser,
-  deleteUserById,
-  putUserById,
-} = require("./routes/users")
-const { postDeletedUsers } = require("./routes/deletedUsers")
-const { getLogin, postLogin } = require("./routes/login")
-require("dotenv").config()
-app.use(express.json())
-const port = 3200
-const nodemailer = require("nodemailer")
+const express = require("express");
+const mongoose = require("mongoose");
+const app = express();
+const { getCrime, getFantasy, getActAdv, getComedy, getMystery, getAllSeries } = require("./models/genres");
+const cors = require("cors");
+const { getContact, postContact } = require("./routes/contact");
+const { getAllUsers, getUserById, postUser, deleteUserById, putUserById, } = require("./routes/users");
+const { postDeletedUsers } = require("./routes/deletedUsers");
+const { getLogin, postLogin } = require("./routes/login");
+require("dotenv").config();
+app.use(express.json());
+const port = 3200;
 const connectDB = require("./controllers/connectDB")
-const { userModel } = require("./models/users")
+const session = require("express-session")
+const requireAuth = require('./models/authMiddleware');
+
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
-}
-app.use(cors(corsOptions))
-
-// async function sendWelcomeEmail(email) {
-//   try {
-//     const transporter = nodemailer.createTransport({
-//       service: "gmail",
-//       auth: {
-//         user: "soracine.service@gmail.com",
-//         pass: "wywc gtrb elkw deew", // Remplacez par le mot de passe d'application généré
-//       },
-//     })
-
-//     const mailOptions = {
-//       from: "soracine.service@gmail.com",
-//       to: email,
-//       subject: "Bienvenue sur Sora Cine !",
-//       text: "Bienvenue sur Sora Cine depuis Node",
-//     }
-
-//     const info = await transporter.sendMail(mailOptions)
-//     console.log("E-mail envoyé :", info.response)
-//   } catch (error) {
-//     console.error("Erreur lors de l'envoi de l'e-mail :", error)
-//   }
-// }
-
-// module.exports = sendWelcomeEmail
+};
+app.use(cors(corsOptions));
+app.use(session({
+  secret: "mysecret",
+  cookie: {
+    sameSite: "strict",
+  },
+  saveUninitialized: false,
+  resave: false,
+}));
 
 
 app.get("/", (req, res) => {
@@ -82,7 +55,7 @@ app.get("/login", getLogin)
 app.get("/contact", getContact)
 app.post("/contact", postContact)
 
-app.get("/series", async (req, res) => {
+app.get("/series", requireAuth, async (req, res) => {
   try {
     const liste = await getAllSeries()
     res.send(liste)
