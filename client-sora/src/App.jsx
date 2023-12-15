@@ -8,7 +8,7 @@ function App() {
     <>
       <ModalCookie />
       <Navbar />
-      <main className="min-h-screen">
+      <main className="min-h-screen bg-gray-900">
         <Outlet></Outlet>
       </main>
       <ScrollRestoration />

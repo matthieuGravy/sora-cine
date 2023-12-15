@@ -74,7 +74,7 @@ function LoginComponent() {
 
   return (
     <>
-      <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
+      <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl lg:w-96 w-80 px-4">
         <h2 className="text-2xl mb-8 text-center">Log in</h2>
         <form
           className="grid gap-6 sm:grid-cols-2 pb-4 rounded-md"
@@ -84,14 +84,14 @@ function LoginComponent() {
             <input
               type="text"
               name="email"
-              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
               placeholder=" "
               value={formData.email}
               onChange={handleInputChange}
               readOnly={false}
             />
             <label
-              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-teal-400 peer-focus:dark:text-text-400"
               htmlFor="email"
             >
               Your email
@@ -107,7 +107,7 @@ function LoginComponent() {
             <input
               id="password"
               name="password"
-              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+              className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
               type={showPassword ? "text" : "password"}
               placeholder=""
               value={formData.password}
@@ -158,7 +158,7 @@ function LoginComponent() {
               )}
             </button>
             <label
-              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+              className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-teal-400 peer-focus:dark:text-teal-400"
               htmlFor="password"
             >
               Your password

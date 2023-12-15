@@ -165,14 +165,14 @@ function Navbar() {
                 />
               </svg>
             </button>
-            <button className="mx-2 ">
+            <button className="px-4">
               <NavLink to="/logout" onClick={logout}>
                 Logout
               </NavLink>
             </button>
           </>
         ) : (
-          <button className="mx-2 ">
+          <button className="px-4 ">
             <NavLink to="/login">Login</NavLink>
           </button>
         )}

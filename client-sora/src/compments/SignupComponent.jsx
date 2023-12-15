@@ -112,13 +112,13 @@ function SignupComponent() {
                   id="firstname"
                   type="text"
                   name="firstname"
-                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
                   placeholder=" "
                   value={formData.firstname}
                   onChange={handleInputChange}
                 />
                 <label
-                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-teal-400 peer-focus:dark:text-teal-400"
                   htmlFor="name"
                 >
                   Name
@@ -135,13 +135,13 @@ function SignupComponent() {
                   id="lastname"
                   type="text"
                   name="lastname"
-                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
                   placeholder=" "
                   value={formData.lastname}
                   onChange={handleInputChange}
                 />
                 <label
-                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-teal-400 peer-focus:dark:text-teal-400"
                   htmlFor="lastname"
                 >
                   Last name
@@ -156,14 +156,14 @@ function SignupComponent() {
                 <input
                   type="text"
                   name="email"
-                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
                   placeholder=" "
                   value={formData.email}
                   onChange={handleInputChange}
                   readOnly={false}
                 />
                 <label
-                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-teal-400 peer-focus:dark:text-teal-400"
                   htmlFor="email"
                 >
                   Your email
@@ -179,7 +179,7 @@ function SignupComponent() {
                 <input
                   id="password"
                   name="password"
-                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
                   type={showPassword ? "text" : "password"}
                   placeholder=""
                   value={formData.password}
@@ -230,7 +230,7 @@ function SignupComponent() {
                   )}
                 </button>
                 <label
-                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-blue-600 peer-focus:dark:text-blue-500"
+                  className="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:text-teal-400 peer-focus:dark:text-teal-400"
                   htmlFor="email"
                 >
                   Your password
@@ -247,7 +247,7 @@ function SignupComponent() {
                 <label htmlFor="birthdate">Date of birth</label>
                 <input
                   name="birthday"
-                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  className="peer block w-full appearance-none border-0 border-b border-gray-500 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-teal-400 focus:outline-none focus:ring-0"
                   type="date"
                   value={selectedDate}
                   onChange={handleDateChange}
@@ -263,7 +263,7 @@ function SignupComponent() {
             </form>
             <article className="flex flex-col items-center text-sm ">
               <p className="text-gray-600">Already have an account?</p>
-              <NavLink to="/login" className="text-blue-500">
+              <NavLink to="/login" className="text-teal-400">
                 Log in?
               </NavLink>
 
@@ -271,7 +271,7 @@ function SignupComponent() {
                 By signing up to create an account I accept<br></br>
                 Sora
               </p>
-              <NavLink to="/terms" className="text-blue-500">
+              <NavLink to="/terms" className="text-teal-400">
                 Terms of Service
               </NavLink>
             </article>
