@@ -1,9 +1,12 @@
 //available props {image, title, alt}
 function Card(props) {
   return (
-    <div className="flex">
-      <figure className="relative block w-28 ">
-        <img className="w-screen" src={props.image} alt={props.alt} />
+    <div
+      className="flex cursor-pointer"
+      onClick={() => props.onClick(props.youtube)}
+    >
+      <figure className="relative block w-28">
+        <img className="w-screen" src={props.image} alt={props.title} />
         {/* Overlay 
           <figure className="svg-container absolute top-1 right-1 sm:top-3 sm:right-2 w-5 h-5 backdrop-blur-sm">
             <svg
@@ -44,4 +47,5 @@ function Card(props) {
     </div>
   );
 }
+
 export default Card;
