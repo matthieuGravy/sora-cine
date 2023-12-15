@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema(
   {
@@ -19,8 +19,8 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true, // Ajoutez ceci pour définir l'attribut email comme unique
       validate: {
-        validator: value => {
-          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        validator: (value) => {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
         },
         message: "Invalid email address",
       },
@@ -35,8 +35,8 @@ const userSchema = new mongoose.Schema(
     },
   },
   { collection: "users" }
-);
+)
 
-const userModel = mongoose.model("User", userSchema);
+const userModel = mongoose.model("User", userSchema)
 
-module.exports = userModel;
+module.exports = userModel

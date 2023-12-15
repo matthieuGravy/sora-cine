@@ -1,53 +1,36 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const {getCrime, getFantasy, getActAdv, getComedy, getMystery,getAllSeries } = require("./models/genres");
+const { getCrime, getFantasy, getActAdv, getComedy, getMystery, getAllSeries } = require("./models/genres");
 const cors = require("cors");
-const { getAnimeData } = require("./controllers/api");
 const { getContact, postContact } = require("./routes/contact");
-const {saveCrimeToDb,saveFantasyToDb,saveComedyToDb,saveActionToDb,saveMysteryToDb,} = require ("./controllers/genre")
-const {getAllUsers,getUserById,postUser,deleteUserById,putUserById,} = require("./routes/users");
+const { getAllUsers, getUserById, postUser, deleteUserById, putUserById, } = require("./routes/users");
 const { postDeletedUsers } = require("./routes/deletedUsers");
 const { getLogin, postLogin } = require("./routes/login");
 require("dotenv").config();
 app.use(express.json());
 const port = 3200;
-const nodemailer = require("nodemailer")
 const connectDB = require("./controllers/connectDB")
+const session = require("express-session")
+const requireAuth = require('./models/authMiddleware');
+
+
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
 
 const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
 };
 app.use(cors(corsOptions));
-
-
-// async function sendWelcomeEmail() {
-//   try {
-//     var transporter = nodemailer.createTransport({
-//       service: 'gmail',
-//       auth: {
-//         user: 'soracine.service@gmail.com',
-//         pass: 'soracine123'
-//       }
-//     });
-
-//     var mailOptions = {
-//       from: 'soracine.service@gmail.com',
-//       to: 'burakburcak72@gmail.com',
-//       subject: 'Welome to Sora Cine !',
-//       text: 'Welcome to Sora Cine from Node'
-//     };
-
-//     const info = await transporter.sendMail(mailOptions);
-//     console.log('Email sent:', info.response);
-//   } catch (error) {
-//     console.error('Error sending email:', error);
-//   }
-// }
-
-// sendWelcomeEmail();
-
+app.use(session({
+  secret: "mysecret",
+  cookie: {
+    sameSite: "strict",
+  },
+  saveUninitialized: false,
+  resave: false,
+}));
 
 
 app.get("/", (req, res) => {
@@ -73,7 +56,7 @@ app.get("/login", getLogin);
 app.get("/contact", getContact);
 app.post("/contact", postContact);
 
-app.get("/series", async (req, res) => {
+app.get("/series", requireAuth, async (req, res) => {
   try {
     const liste = await getAllSeries();
     res.send(liste);
