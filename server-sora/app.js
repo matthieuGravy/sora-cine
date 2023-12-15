@@ -3,36 +3,49 @@ const mongoose = require("mongoose");
 const app = express();
 const {getCrime, getFantasy, getActAdv, getComedy, getMystery,getAllSeries } = require("./models/genres");
 const cors = require("cors");
-// const { getSeries, getSeriesById } = require("./routes/series");
 const { getAnimeData } = require("./controllers/api");
 const { getContact, postContact } = require("./routes/contact");
-const {
-  seriesModel,
-  crimeModel,
-  comedyModel,
-  fantasyModel,
-  actionAdvModel,
-  mysteryModel
-} = require("./models/series");
-
-const {
-  getAllUsers,
-  getUserById,
-  postUser,
-  deleteUserById,
-  putUserById,
-} = require("./routes/users");
+const {saveCrimeToDb,saveFantasyToDb,saveComedyToDb,saveActionToDb,saveMysteryToDb,} = require ("./controllers/genre")
+const {getAllUsers,getUserById,postUser,deleteUserById,putUserById,} = require("./routes/users");
 const { postDeletedUsers } = require("./routes/deletedUsers");
 const { getLogin, postLogin } = require("./routes/login");
 require("dotenv").config();
 app.use(express.json());
 const port = 3200;
+const nodemailer = require("nodemailer")
 
 const corsOptions = {
   origin: "http://localhost:5173",
   credentials: true,
 };
 app.use(cors(corsOptions));
+
+
+// async function sendWelcomeEmail() {
+//   try {
+//     var transporter = nodemailer.createTransport({
+//       service: 'gmail',
+//       auth: {
+//         user: 'soracine.service@gmail.com',
+//         pass: 'soracine123'
+//       }
+//     });
+
+//     var mailOptions = {
+//       from: 'soracine.service@gmail.com',
+//       to: 'burakburcak72@gmail.com',
+//       subject: 'Welome to Sora Cine !',
+//       text: 'Welcome to Sora Cine from Node'
+//     };
+
+//     const info = await transporter.sendMail(mailOptions);
+//     console.log('Email sent:', info.response);
+//   } catch (error) {
+//     console.error('Error sending email:', error);
+//   }
+// }
+
+// sendWelcomeEmail();
 
 
 function connectDB() {
@@ -77,236 +90,65 @@ app.post("/deletedUsers", postDeletedUsers);
 app.post("/login", postLogin);
 app.get("/login", getLogin);
 
-//series
-// app.get("/series", getSeries);
-// app.post("/series", getSeries);
-// app.get("/series/:id", getSeriesById);
-
 //Contact
 app.get("/contact", getContact);
 app.post("/contact", postContact);
 
-
-// //Post series 
-app.post("/series", async (req, res) => {
+app.get("/series", async (req, res) => {
   try {
     const liste = await getAllSeries();
-    // Le reste du code pour gérer la réponse de la requête
-    res.send("Opération réussie !");
+    res.send(liste);
   } catch (error) {
-    // Gérer les erreurs
     console.error("Erreur lors de l'exécution de getSeries:", error);
     res.status(500).send("Erreur interne du serveur");
   }
 });
-app.get("/series"),(req,res)=>{
-  res.send(req.body)
-}
-
-// app.post("/series",getSeries())
-// app.post("/series/action",getActAdv())
-// app.post("/series/comedy",getComedy())
-// app.post("/series/fantasy",getFantasy())
-// app.post("/series/crime",getMystery())
-
-async function saveSeriesToDatabase() {
-  const seriesData = await getAnimeData();
-  // console.log(seriesData)
-  for (const serie of seriesData) {
-    try {
-      const seriesInstance = new seriesModel({
-        backdrop_path: serie.backdrop_path,
-        first_air_date: new Date(serie.first_air_date),
-        genre_ids: serie.genre_ids,
-        id: serie.id,
-        name: serie.name,
-        origin_country: serie.origin_country,
-        original_language: serie.original_language,
-        original_name: serie.original_name,
-        overview: serie.overview,
-        popularity: serie.popularity,
-        poster_path: serie.poster_path,
-        vote_average: serie.vote_average,
-        vote_count: serie.vote_count,
-        url: serie.url,
-      });
-
-      await seriesInstance.save();
-      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
-    } catch (error) {
-      // console.error(
-      //   `Erreur lors de l'enregistrement de la série ${serie.name}:`,
-      //   error
-      // );
-    }
+app.get("/series/mystery", async (req, res) => {
+  try {
+    const liste = await getMystery();
+    res.send(liste);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de getSeries:", error);
+    res.status(500).send("Erreur interne du serveur");
   }
-}
-async function saveCrimeToDb(){
-  const seriesData = await getCrime();
-  // console.log(seriesData)
-  for (const serie of seriesData) {
-    try {
-      const seriesInstance = new crimeModel({
-        backdrop_path: serie.backdrop_path,
-        first_air_date: new Date(serie.first_air_date),
-        genre_ids: serie.genre_ids,
-        id: serie.id,
-        name: serie.name,
-        origin_country: serie.origin_country,
-        original_language: serie.original_language,
-        original_name: serie.original_name,
-        overview: serie.overview,
-        popularity: serie.popularity,
-        poster_path: serie.poster_path,
-        vote_average: serie.vote_average,
-        vote_count: serie.vote_count,
-        url: serie.url,
-      });
-
-      await seriesInstance.save();
-      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
-    } catch (error) {
-      // console.error(
-      //   `Erreur lors de l'enregistrement de la série ${serie.name}:`,
-      //   error
-      // );
-    }
+});
+app.get("/series/crime", async (req, res) => {
+  try {
+    const liste = await getCrime();
+    res.send(liste);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de getSeries:", error);
+    res.status(500).send("Erreur interne du serveur");
   }
-}
-async function saveFantasyToDb(){
-  const seriesData = await getFantasy();
-  // console.log(seriesData)
-  for (const serie of seriesData) {
-    try {
-      const seriesInstance = new fantasyModel({
-        backdrop_path: serie.backdrop_path,
-        first_air_date: new Date(serie.first_air_date),
-        genre_ids: serie.genre_ids,
-        id: serie.id,
-        name: serie.name,
-        origin_country: serie.origin_country,
-        original_language: serie.original_language,
-        original_name: serie.original_name,
-        overview: serie.overview,
-        popularity: serie.popularity,
-        poster_path: serie.poster_path,
-        vote_average: serie.vote_average,
-        vote_count: serie.vote_count,
-        url: serie.url,
-      });
-
-      await seriesInstance.save();
-      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
-    } catch (error) {
-      // console.error(
-      //   `Erreur lors de l'enregistrement de la série ${serie.name}:`,
-      //   error
-      // );
-    }
+});
+app.get("/series/fantasy", async (req, res) => {
+  try {
+    const liste = await getFantasy();
+    res.send(liste);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de getSeries:", error);
+    res.status(500).send("Erreur interne du serveur");
   }
-}
-async function saveComedyToDb(){
-  const seriesData = await getComedy();
-  // console.log(seriesData)
-  for (const serie of seriesData) {
-    try {
-      const seriesInstance = new comedyModel({
-        backdrop_path: serie.backdrop_path,
-        first_air_date: new Date(serie.first_air_date),
-        genre_ids: serie.genre_ids,
-        id: serie.id,
-        name: serie.name,
-        origin_country: serie.origin_country,
-        original_language: serie.original_language,
-        original_name: serie.original_name,
-        overview: serie.overview,
-        popularity: serie.popularity,
-        poster_path: serie.poster_path,
-        vote_average: serie.vote_average,
-        vote_count: serie.vote_count,
-        url: serie.url,
-      });
-
-      await seriesInstance.save();
-      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
-    } catch (error) {
-      // console.error(
-      //   `Erreur lors de l'enregistrement de la série ${serie.name}:`,
-      //   error
-      // );
-    }
+});
+app.get("/series/act_adv", async (req, res) => {
+  try {
+    const liste = await getActAdv();
+    res.send(liste);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de getSeries:", error);
+    res.status(500).send("Erreur interne du serveur");
   }
-}
-async function saveActionToDb(){
-  const seriesData = await getActAdv();
-  // console.log(seriesData)
-  for (const serie of seriesData) {
-    try {
-      const seriesInstance = new actionAdvModel({
-        backdrop_path: serie.backdrop_path,
-        first_air_date: new Date(serie.first_air_date),
-        genre_ids: serie.genre_ids,
-        id: serie.id,
-        name: serie.name,
-        origin_country: serie.origin_country,
-        original_language: serie.original_language,
-        original_name: serie.original_name,
-        overview: serie.overview,
-        popularity: serie.popularity,
-        poster_path: serie.poster_path,
-        vote_average: serie.vote_average,
-        vote_count: serie.vote_count,
-        url: serie.url,
-      });
-
-      await seriesInstance.save();
-      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
-    } catch (error) {
-      // console.error(
-      //   `Erreur lors de l'enregistrement de la série ${serie.name}:`,
-      //   error
-      // );
-    }
+});
+app.get("/series/comedy", async (req, res) => {
+  try {
+    const liste = await getComedy();
+    res.send(liste);
+  } catch (error) {
+    console.error("Erreur lors de l'exécution de getSeries:", error);
+    res.status(500).send("Erreur interne du serveur");
   }
-}
-async function saveMysteryToDb(){
-  const seriesData = await getMystery();
-  // console.log(seriesData)
-  for (const serie of seriesData) {
-    try {
-      const seriesInstance = new mysteryModel({
-        backdrop_path: serie.backdrop_path,
-        first_air_date: new Date(serie.first_air_date),
-        genre_ids: serie.genre_ids,
-        id: serie.id,
-        name: serie.name,
-        origin_country: serie.origin_country,
-        original_language: serie.original_language,
-        original_name: serie.original_name,
-        overview: serie.overview,
-        popularity: serie.popularity,
-        poster_path: serie.poster_path,
-        vote_average: serie.vote_average,
-        vote_count: serie.vote_count,
-        url: serie.url,
-      });
+});
 
-      await seriesInstance.save();
-      console.log(`Série enregistrée dans la base de données: ${serie.name}`);
-    } catch (error) {
-      // console.error(
-      //   `Erreur lors de l'enregistrement de la série ${serie.name}:`,
-      //   error
-      // );
-    }
-  }
-}
-// saveMysteryToDb();
-// saveActionToDb();
-// saveComedyToDb();
-// saveCrimeToDb();
-// saveFantasyToDb();
-// saveSeriesToDatabase();
 
 mongoose.connection.on("connected", (err, res) => {
   console.log("mongoose is connected");

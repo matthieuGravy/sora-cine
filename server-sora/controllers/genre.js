@@ -5,6 +5,7 @@ const {
   comedyModel,
   mysteryModel,
 } = require("../models/series");
+
 const {
   getComedy,
   getMystery,
@@ -172,6 +173,7 @@ async function saveMysteryToDb() {
       // );
     }
   }
+
 }
 
 module.exports = {
