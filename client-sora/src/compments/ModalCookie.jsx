@@ -14,7 +14,7 @@ const ModalCookie = () => {
 
   return (
     <section
-      className="fixed inset-0 w-full h-full flex items-center justify-center  backdrop-blur-sm z-50"
+      className="fixed inset-0 w-full h-full flex items-center justify-center backdrop-blur-sm z-50"
       style={{ display: modalOpen ? "absolute" : "none" }}
     >
       <article className="bg-zinc-100 p-7 rounded-lg max-w-xs">
