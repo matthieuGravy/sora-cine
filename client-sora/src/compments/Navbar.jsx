@@ -1,6 +1,8 @@
 import { NavLink, useMatch } from "react-router-dom";
-import { useState, Fragment, useEffect } from "react";
+import { useState, Fragment, useEffect, useContext } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+
+import AuthContext from "../API/AuthContext";
 
 import sora from "../assets/images/sora.svg";
 import SearchComponent from "./SearchComponent";
@@ -8,6 +10,7 @@ import SearchComponent from "./SearchComponent";
 function Navbar() {
   const [isNavVisible, setIsNavVisible] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   const { scrollYProgress } = useScroll();
   const { scrollY } = useScroll();
@@ -147,9 +150,17 @@ function Navbar() {
             />
           </svg>
         </button>
-        <button className="mx-2 ">
-          <NavLink to="/login">Login</NavLink>
-        </button>
+        {isLoggedIn ? (
+          <button className="mx-2 ">
+            <NavLink to="/logout" onClick={logout}>
+              Logout
+            </NavLink>
+          </button>
+        ) : (
+          <button className="mx-2 ">
+            <NavLink to="/login">Login</NavLink>
+          </button>
+        )}
       </section>
     </motion.header>
   );

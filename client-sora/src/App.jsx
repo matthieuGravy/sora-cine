@@ -1,12 +1,13 @@
 import "./index.css";
 import { Outlet, ScrollRestoration } from "react-router-dom";
-import { Navbar } from "./compments/Navbar";
 import { ModalCookie } from "./compments/ModalCookie";
+import { Navbar } from "./compments/Navbar";
+
 function App() {
   return (
     <>
-      <Navbar />
       <ModalCookie />
+      <Navbar />
       <main className="min-h-screen">
         <Outlet></Outlet>
       </main>
