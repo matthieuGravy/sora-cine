@@ -1,8 +1,8 @@
-import { TitleCategory } from "../../compments/TitleCategory";
-import Card from "../../compments/Card";
-import { Hero, Herojumbo } from "../../compments/Hero";
-import { Footer } from "../../compments/Footer";
-import goku from "../../assets/images/goku.svg";
+import { TitleCategory } from "./../../../../compments/TitleCategory";
+import Card from "./../../../../compments/Card";
+import { Hero, Herojumbo } from "./../../../../compments/Hero";
+import { Footer } from "./../../../../compments/Footer";
+import goku from "./../../../../assets/images/goku.svg";
 
 import {
   motion,
