@@ -177,7 +177,7 @@ function Homepage() {
       <article className="h-[50vh] w-screen">
         <TitleCategory title="Fantasy" />
 
-        <motion.section className=" h-64 ps-36">
+        <motion.section className="h-64 ps-36">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}
@@ -259,7 +259,7 @@ function Homepage() {
       </article>
       <article className="h-[50vh] w-screen">
         <TitleCategory title="Crime" />
-        <motion.section className="h-64 ps-36 bg-yellow-200">
+        <motion.section className="h-64 ps-36">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}

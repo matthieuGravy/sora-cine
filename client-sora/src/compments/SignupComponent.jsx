@@ -99,7 +99,7 @@ function SignupComponent() {
         </>
       ) : (
         <>
-          <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl">
+          <section className="min-w-fit max-w-sm flex-col border bg-slate-200 px-6 py-14 shadow-md rounded-2xl">
             <h2 className="text-2xl mb-8 text-center">Sign up</h2>
             <form
               className="grid gap-6 sm:grid-cols-2 pb-4"
