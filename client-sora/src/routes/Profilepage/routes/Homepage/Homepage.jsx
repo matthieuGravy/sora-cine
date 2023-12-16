@@ -14,6 +14,7 @@ import {
 } from "framer-motion";
 
 import { useRef } from "react";
+import SearchComponent from "../../../../compments/SearchComponent";
 
 function Homepage() {
   const targetRef = useRef < HTMLDivElement > null;
@@ -284,6 +285,7 @@ function Homepage() {
           </article>
         </motion.section>
       </article>
+      <SearchComponent />
       <Footer />
     </>
   );
