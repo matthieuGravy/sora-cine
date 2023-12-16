@@ -42,8 +42,8 @@ function Navbar() {
     { id: 2, to: "contact", text: "Contact" },
   ];
   const linksLoggedIn = [
-    { id: 0, to: "/", text: "Anime" },
-    { id: 1, to: "settings", text: "Settings" },
+    { id: 0, to: "profile", text: "Anime" },
+    { id: 1, to: "profile/settings", text: "Settings" },
   ];
 
   const NavLinkComponent = (props) => {
