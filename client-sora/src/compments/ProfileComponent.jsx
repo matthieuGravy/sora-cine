@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import profile_icon from "../assets/images/Naruto-PNG-Clipart.png";
-
+import { ButtonSubscribe } from "./Buttons";
+import { NavLink } from "react-router-dom";
 function ProfileComponent() {
   const [user, setUser] = useState({
     _id: "",
@@ -158,22 +159,24 @@ function ProfileComponent() {
 
   return (
     <>
-      <section className="grid md:grid-cols-3 border bg-white px-6 py-14 shadow-md rounded-2xl sm:max-w-lg md:max-w-6xl">
+      <section className="grid md:grid-cols-3 border bg-slate-200 px-6 py-14 shadow-md rounded-2xl sm:max-w-lg md:max-w-6xl">
         <section className="grid grid-cols-6 md:col-start-2 min-w-fit max-w-md sm:max-w-md items-center justify-between select-none">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-8 h-8 justify-start col-start-1"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
-          </svg>
+          <NavLink to="/profile">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-8 h-8 justify-start col-start-1"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15.75 19.5L8.25 12l7.5-7.5"
+              />
+            </svg>
+          </NavLink>
           <h2 className="text-3xl font-bold col-start-2 col-span-5">
             Account Settings
           </h2>
@@ -424,6 +427,7 @@ function ProfileComponent() {
               </button>
             )}
           </form>
+
           <button className="border-2 border-red-500 rounded-lg col-span-6 p-5 mt-8 text-red-500 font-bold">
             Delete Account
           </button>

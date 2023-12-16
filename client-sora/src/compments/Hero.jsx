@@ -55,7 +55,7 @@ function Hero(props) {
 
   return (
     <section
-      className="grid xl:grid-cols-2 h-screen"
+      className="grid xl:grid-cols-2"
       style={{
         backgroundImage:
           "linear-gradient(90deg, rgba(13,148,136,1) 0%, rgba(162,28,175,1) 100%)",
@@ -86,7 +86,7 @@ function Hero(props) {
           src={images[currentIndex]}
           alt={props.alt}
           loading="lazy"
-          className="xl:max-w-lg lg:max-w-sm max-w-xs mx-auto"
+          className="xl:max-w-lg lg:max-w-sm w-[30vh] mx-auto"
         />
       </figure>
     </section>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 function LoginComponent() {
   const navigate = useNavigate();
@@ -74,7 +74,7 @@ function LoginComponent() {
 
   return (
     <>
-      <section className="min-w-fit max-w-sm flex-col border bg-white px-6 py-14 shadow-md rounded-2xl lg:w-96 w-80 px-4">
+      <section className="min-w-fit max-w-sm flex-col border bg-slate-200 px-6 py-14 shadow-md rounded-2xl lg:w-96 w-80 px-4">
         <h2 className="text-2xl mb-8 text-center">Log in</h2>
         <form
           className="grid gap-6 sm:grid-cols-2 pb-4 rounded-md"
@@ -115,6 +115,7 @@ function LoginComponent() {
               readOnly={false}
             />
             <button
+              type="button"
               className="absolute right-3 top-3 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
             >
@@ -178,9 +179,9 @@ function LoginComponent() {
             Sign in
           </button>
         </form>
-        <a className="flex justify-center text-sm text-blue-500" href="#">
+        <NavLink className="flex justify-center text-sm text-teal-400">
           Forget password?
-        </a>
+        </NavLink>
       </section>
     </>
   );
