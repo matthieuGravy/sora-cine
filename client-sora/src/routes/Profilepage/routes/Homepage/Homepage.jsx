@@ -2,7 +2,7 @@ import { TitleCategory } from "./../../../../compments/TitleCategory";
 import Card from "./../../../../compments/Card";
 import { Hero, Herojumbo } from "./../../../../compments/Hero";
 import { Footer } from "./../../../../compments/Footer";
-import goku from "./../../../../assets/images/goku.svg";
+
 import React, { useState, useEffect } from "react";
 import ModalVideo from "../../../../compments/ModalVideo";
 
@@ -16,52 +16,6 @@ import {
 import { useRef } from "react";
 
 function Homepage() {
-  const slides1 = [
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-    <Card title="Titre de la carte" image={goku} />,
-  ];
-  const slides2 = [<Card />, <Card />, <Card />];
-
   const targetRef = useRef < HTMLDivElement > null;
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -195,11 +149,7 @@ function Homepage() {
       <article className="h-[50vh] w-screen">
         <TitleCategory title="Mystery" />
 
-        <motion.section
-          className="relative h-64 ps-36"
-          initial={{ y: 0 }}
-          animate={{ y: 50 }}
-        >
+        <motion.section className="h-64 ps-36">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}
@@ -227,11 +177,7 @@ function Homepage() {
       <article className="h-[50vh] w-screen">
         <TitleCategory title="Fantasy" />
 
-        <motion.section
-          className="relative h-64 ps-36"
-          initial={{ y: 0 }}
-          animate={{ y: 50 }}
-        >
+        <motion.section className=" h-64 ps-36">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}
@@ -257,13 +203,8 @@ function Homepage() {
         </motion.section>
       </article>
       <article className="h-[50vh] w-screen">
-        <TitleCategory title="Action/Adventure" />
-
-        <motion.section
-          className="relative h-64 ps-36"
-          initial={{ y: 0 }}
-          animate={{ y: 50 }}
-        >
+        <TitleCategory title="Action - Adventure" />
+        <motion.section className=" h-64 ps-36">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}
@@ -291,11 +232,7 @@ function Homepage() {
       <article className="h-[50vh] w-screen">
         <TitleCategory title="Comedy" />
 
-        <motion.section
-          className="relative h-64 ps-36"
-          initial={{ y: 0 }}
-          animate={{ y: 50 }}
-        >
+        <motion.section className=" h-64 ps-36">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}
@@ -322,12 +259,7 @@ function Homepage() {
       </article>
       <article className="h-[50vh] w-screen">
         <TitleCategory title="Crime" />
-
-        <motion.section
-          className="relative h-64 ps-36"
-          initial={{ y: 0 }}
-          animate={{ y: 50 }}
-        >
+        <motion.section className="h-64 ps-36 bg-yellow-200">
           <article
             className=" flex items-right justify-end"
             transition={{ type: "spring", stiffness: 100 }}

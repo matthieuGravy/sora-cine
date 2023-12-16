@@ -187,6 +187,7 @@ function SignupComponent() {
                   readOnly={false}
                 />
                 <button
+                  type="button"
                   className="absolute right-3 top-3 cursor-pointer"
                   onClick={() => setShowPassword(!showPassword)}
                 >
