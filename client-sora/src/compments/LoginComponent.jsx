@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
+import AuthContext from "../API/AuthContext";
 
 function LoginComponent() {
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const navigateToHomepage = () => navigate("/profile");
 
@@ -65,6 +67,7 @@ function LoginComponent() {
       // Handle success (e.g., show a success message)
       const responseData = await response.json();
       console.log("Form submitted successfully:", responseData);
+      login();
       navigateToHomepage();
     } catch (error) {
       // Handle errors (e.g., show an error message)
