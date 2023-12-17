@@ -285,7 +285,6 @@ function Homepage() {
           </article>
         </motion.section>
       </article>
-      <SearchComponent />
       <Footer />
     </>
   );
