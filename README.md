@@ -1,5 +1,9 @@
 # Sora Cine
 
+## Project Live demo
+
+[https://sora-cine.vercel.app](https://sora-cine.vercel.app/)
+
 ## Built with MERN Stack
 
 - <b>MongoDB</b>: A document-based database or NoSQL, to be precise MSQL.
