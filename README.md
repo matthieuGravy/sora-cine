@@ -22,14 +22,12 @@ To Run this project in your system you need to install:
 - [MongoDB](https://www.mongodb.com/)
   or Just do the Setup.
 
-## Setup
+### Setup
 
 Clone or download this repository
 
 1. `cd https://github.com/matthieuGravy/sora-cine`
 2. `npm install` To install dependencies inside the package.JSON
-
-🚧UNDER CUNSTRUCTION🚧
 
 ### To Run
 
@@ -37,21 +35,44 @@ To run node server
 
 To run react frontend
 
-🚧UNDER CUNSTRUCTION🚧
+## BACK
 
-## Anime Netflix Clone
+### .env
 
-### Design
+- inside sora-cine/server-sora
+- create your .env
 
-### User Trello
+## API routes
+
+### CRUD
+
+#### ANIME (by genre, all)
+- /series : GET request, to get All anime in the database.
+- /series/genre (genre = mystery, crime, fantasy, act_adv, comedy) : GET request, to get anime by genre in the database.
+
+#### CONTACT
+- /contact : GET request : to get all contact post in the database for the admin panel.
+- /contact : POST request, to create a new contact field object in the de database before returning in the admin panel.
+
+#### LOGIN
+- /login : GET request, to get user in the database. 
+- /login : POST request, to get the user from the users DB and post in the logins DB to assign a token.
+
+#### USER
+- /user : GET request, to get user in the database.
+- /user/:id : GET request, to get user by user in the database. 
+- /user : POST request, to create a new user.
+- /user/:id : PUT request, to modify the users by id.
+- /user/:id : DELETE request, to delete a user and send him to DELETED USER.
+
+#### DELETED USER
+- /deletedUsers : POST request, to create a list of deleted users.
 
 ## Technology used:
 
 - [Tailwinds CSS](https://tailwindcss.com/docs/installation "A utility-first CSS framework")
 - [NodeJS](https://nodejs.org/en/ " JavaScript runtime built on Chrome's V8 JavaScript engine") &
   [Express](https://expressjs.com/ " Express is a minimal and flexible Node.js web application framework")
-- [Docker](https://docs.docker.com/ "Developing, shipping, and running applications.")
-- [nginx](https://www.nginx.com/)
 - [Mongodb](https://www.mongodb.com/ "Database")
 - [Mongoose](https://mongoosejs.com/ "MongoDB framework object modeling for node.js")
 - [React ](https://reactjs.org/docs/getting-started.html)
